@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Carlos Riquelme — Sitios web modernos para Pymes chilenas</title>
+  <meta name="description" content="Desarrollo sitios web modernos, rápidos y autoadministrables para Pymes chilenas. Cierra más clientes y gana confianza online." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --primary: #0073ff;
+      --primary-dark: #0052b3;
+      --secondary: #0f172a;
+      --accent: #79ddff;
+      --background: #f1f5f9;
+      --card: #ffffff;
+      --text: #0b1120;
+      --muted: #475569;
+    }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: "Poppins", sans-serif;
+      color: var(--text);
+      background: var(--background);
+      line-height: 1.55;
+    }
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+    header {
+      background: radial-gradient(circle at top left, #1746a2 0%, #0b1e5b 60%, #050b24 100%);
+      color: #fff;
+      padding: 0 1.5rem 6rem;
+      overflow: hidden;
+      position: relative;
+    }
+    .nav {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 1.5rem 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-weight: 600;
+      font-size: 1.05rem;
+    }
+    .brand span {
+      display: inline-grid;
+      place-items: center;
+      width: 48px;
+      height: 48px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, var(--accent) 0%, var(--primary) 100%);
+      color: #00193a;
+      font-weight: 700;
+      font-size: 1.2rem;
+    }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 1.25rem;
+      font-size: 0.95rem;
+    }
+    .primary-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.85rem 1.75rem;
+      border-radius: 999px;
+      background: linear-gradient(135deg, var(--accent) 0%, var(--primary) 100%);
+      color: #00193a;
+      font-weight: 600;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      box-shadow: 0 14px 30px rgba(0, 115, 255, 0.25);
+    }
+    .primary-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 18px 36px rgba(0, 115, 255, 0.35);
+    }
+    .hero {
+      max-width: 1120px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 2.5rem;
+      padding: 5rem 0 0;
+    }
+    .hero h1 {
+      font-size: clamp(2.4rem, 3vw + 1rem, 3.6rem);
+      line-height: 1.1;
+      margin-bottom: 1.5rem;
+    }
+    .hero p {
+      margin-bottom: 1.75rem;
+      color: rgba(255, 255, 255, 0.82);
+      font-size: 1.05rem;
+    }
+    .hero-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-bottom: 2.5rem;
+    }
+    .badge {
+      background: rgba(255, 255, 255, 0.1);
+      padding: 0.65rem 1rem;
+      border-radius: 12px;
+      font-size: 0.92rem;
+      backdrop-filter: blur(10px);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .illustration {
+      background: rgba(10, 20, 60, 0.6);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 24px;
+      padding: 2.25rem;
+      display: grid;
+      gap: 1.5rem;
+      backdrop-filter: blur(16px);
+    }
+    .project-card {
+      background: rgba(4, 10, 35, 0.65);
+      border-radius: 18px;
+      padding: 1.25rem;
+      border: 1px solid rgba(121, 221, 255, 0.18);
+      box-shadow: 0 8px 24px rgba(5, 15, 45, 0.45);
+    }
+    .project-card img {
+      width: 100%;
+      border-radius: 12px;
+      margin-bottom: 1rem;
+    }
+    .project-card h3 {
+      font-size: 1.05rem;
+      margin-bottom: 0.35rem;
+    }
+    section {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 5rem 1.5rem;
+    }
+    .section-title {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+    }
+    .section-subtitle {
+      color: var(--muted);
+      max-width: 640px;
+      margin-bottom: 2.5rem;
+    }
+    .features {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.75rem;
+    }
+    .feature {
+      background: var(--card);
+      padding: 1.75rem;
+      border-radius: 18px;
+      border: 1px solid rgba(15, 23, 42, 0.06);
+      box-shadow: 0 8px 24px rgba(15, 23, 42, 0.06);
+    }
+    .feature h3 {
+      margin-bottom: 0.85rem;
+      font-size: 1.1rem;
+    }
+    .feature p {
+      color: var(--muted);
+      font-size: 0.96rem;
+    }
+    .pricing-grid {
+      display: grid;
+      gap: 1.75rem;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    }
+    .pricing-card {
+      background: var(--card);
+      border-radius: 20px;
+      padding: 2rem;
+      border: 1px solid rgba(15, 23, 42, 0.08);
+      position: relative;
+      display: grid;
+      gap: 1.25rem;
+      box-shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
+    }
+    .pricing-card.featured {
+      border: 2px solid var(--primary);
+      transform: scale(1.02);
+      box-shadow: 0 18px 36px rgba(0, 115, 255, 0.18);
+    }
+    .price {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--primary);
+    }
+    .price span {
+      display: block;
+      font-size: 0.95rem;
+      color: var(--muted);
+      font-weight: 500;
+      margin-top: 0.5rem;
+    }
+    .pricing-card ul {
+      list-style: none;
+      display: grid;
+      gap: 0.6rem;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+    .pricing-card ul li:before {
+      content: "✓";
+      color: var(--primary);
+      font-weight: 600;
+      margin-right: 0.6rem;
+    }
+    .secondary-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.85rem 1.5rem;
+      border-radius: 999px;
+      border: 1px solid rgba(15, 23, 42, 0.16);
+      font-weight: 600;
+      transition: background 0.2s ease, transform 0.2s ease;
+    }
+    .secondary-btn:hover {
+      background: rgba(15, 23, 42, 0.05);
+      transform: translateY(-1px);
+    }
+    .process {
+      display: grid;
+      gap: 1.25rem;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    }
+    .process-step {
+      background: var(--card);
+      border-radius: 18px;
+      padding: 1.75rem;
+      border: 1px solid rgba(15, 23, 42, 0.06);
+    }
+    .step-number {
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      background: rgba(0, 115, 255, 0.12);
+      color: var(--primary);
+      font-weight: 700;
+      display: inline-grid;
+      place-items: center;
+      margin-bottom: 1rem;
+    }
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.75rem;
+    }
+    .gallery-card {
+      background: var(--card);
+      border-radius: 18px;
+      overflow: hidden;
+      border: 1px solid rgba(15, 23, 42, 0.06);
+      box-shadow: 0 8px 24px rgba(15, 23, 42, 0.08);
+    }
+    .gallery-card img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+    }
+    .gallery-card div {
+      padding: 1.25rem;
+    }
+    .gallery-card h4 {
+      margin-bottom: 0.5rem;
+      font-size: 1.1rem;
+    }
+    .gallery-card p {
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+    .testimonials {
+      display: grid;
+      gap: 1.75rem;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    }
+    .testimonial {
+      background: var(--card);
+      border-radius: 18px;
+      padding: 1.75rem;
+      border: 1px solid rgba(15, 23, 42, 0.06);
+      display: grid;
+      gap: 1rem;
+      box-shadow: 0 8px 24px rgba(15, 23, 42, 0.08);
+    }
+    .testimonial cite {
+      font-style: normal;
+      font-weight: 600;
+      display: block;
+      color: var(--secondary);
+    }
+    .faq {
+      display: grid;
+      gap: 1.25rem;
+    }
+    .faq-item {
+      background: var(--card);
+      border-radius: 16px;
+      padding: 1.5rem;
+      border: 1px solid rgba(15, 23, 42, 0.06);
+    }
+    .faq-item h4 {
+      margin-bottom: 0.6rem;
+      font-size: 1.05rem;
+    }
+    footer {
+      background: #020617;
+      color: rgba(241, 245, 249, 0.78);
+      padding: 3rem 1.5rem;
+    }
+    .footer-inner {
+      max-width: 1120px;
+      margin: 0 auto;
+      display: grid;
+      gap: 1rem;
+      text-align: center;
+    }
+    .footer-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      justify-content: center;
+      margin-top: 1rem;
+    }
+    @media (max-width: 768px) {
+      .nav {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .nav-links {
+        flex-wrap: wrap;
+        gap: 1rem;
+      }
+      .hero {
+        padding-top: 3.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <nav class="nav">
+      <a class="brand" href="#">
+        <span>CR</span>
+        Carlos Riquelme · Desarrollo Web
+      </a>
+      <div class="nav-links">
+        <a href="#propuesta">Propuesta</a>
+        <a href="#portafolio">Ejemplos</a>
+        <a href="#precios">Planes</a>
+        <a href="#faq">FAQ</a>
+        <a class="secondary-btn" href="mailto:carlitisamuel@gmail.com>Escríbeme</a>
+        <a class="primary-btn" href="https://wa.me/56949661990?text=Hola%20Carlos,%20quiero%20cotizar%20una%20página%20web%20para%20mi%20negocio">Agenda una llamada</a>
+      </div>
+    </nav>
+    <div class="hero">
+      <div>
+        <h1>Atrae más clientes con una web moderna y rápida en menos de 10 días</h1>
+        <p>Desarrollo sitios web para pymes chilenas que necesitan confianza, velocidad y resultados. Diseño profesional, SEO integrado y soporte local.</p>
+        <div class="hero-badges">
+          <span class="badge">⚡ Entrega en 7-10 días</span>
+          <span class="badge">🤝 Trabajo directo con el dueño del negocio</span>
+          <span class="badge">🇨🇱 Soporte en horario Chile</span>
+        </div>
+        <a class="primary-btn" href="https://wa.me/56912345678?text=Hola%20Carlos,%20quiero%20agendar%20una%20reunión%20para%20mi%20sitio">Reservar reunión de diagnóstico</a>
+      </div>
+      <div class="illustration">
+        <div class="project-card">
+          <img src="https://images.unsplash.com/photo-1523475472560-d2df97ec485c?auto=format&fit=crop&w=900&q=80" alt="Ejemplo sitio web para cafetería en Chile" />
+          <h3>Cafetería Río Sur</h3>
+          <p>Implementación de menú digital, WhatsApp directo y reseñas destacadas.</p>
+        </div>
+        <div class="project-card">
+          <img src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=900&q=80" alt="Ejemplo sitio web para consultora" />
+          <h3>Consultora Bosque</h3>
+          <p>Landing orientada a captar prospectos con formulario CRM integrado.</p>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <section id="propuesta">
+    <h2 class="section-title">Tu pyme necesita más que una página bonita</h2>
+    <p class="section-subtitle">Construyo sitios administrables, optimizados para buscadores y pensados para convertir visitas en clientes reales. Todo con una comunicación directa y sin tecnicismos innecesarios.</p>
+    <div class="features">
+      <div class="feature">
+        <h3>Mensajes que venden</h3>
+        <p>Analizo tu negocio y traduzco tu oferta en secciones claras que inspiran confianza y acción.</p>
+      </div>
+      <div class="feature">
+        <h3>Velocidad & SEO</h3>
+        <p>Core Web Vitals, optimización de imágenes y estructura SEO local para aparecer en Google Chile.</p>
+      </div>
+      <div class="feature">
+        <h3>Web autoadministrable</h3>
+        <p>Entrega con editor simple para que puedas actualizar textos, fotos y promociones cuando quieras.</p>
+      </div>
+      <div class="feature">
+        <h3>Integraciones clave</h3>
+        <p>WhatsApp Business, formularios de agenda, analítica y herramientas que tu pyme ya usa.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="portafolio">
+    <h2 class="section-title">Plantillas listas para personalizar en tu rubro</h2>
+    <p class="section-subtitle">Puedes partir desde uno de estos estilos y adaptarlo con tus colores, logo y contenido. Elige la base que mejor represente tu negocio y la ajustamos juntos.</p>
+    <div class="gallery">
+      <div class="gallery-card">
+        <img src="https://images.unsplash.com/photo-1444419988131-046ed4e5ffd6?auto=format&fit=crop&w=900&q=80" alt="Plantilla para restaurantes y cafeterías" />
+        <div>
+          <h4>Restaurantes & Cafeterías</h4>
+          <p>Menú fácil de navegar, reservas directas y reseñas destacadas.</p>
+        </div>
+      </div>
+      <div class="gallery-card">
+        <img src="https://images.unsplash.com/photo-1521791136064-7986c2920216?auto=format&fit=crop&w=900&q=80" alt="Plantilla para servicios profesionales" />
+        <div>
+          <h4>Servicios Profesionales</h4>
+          <p>Presenta tu propuesta, casos de éxito y llamados a agenda rápidos.</p>
+        </div>
+      </div>
+      <div class="gallery-card">
+        <img src="https://images.unsplash.com/photo-1518611507436-f9221403cca0?auto=format&fit=crop&w=900&q=80" alt="Plantilla para turismo y alojamientos" />
+        <div>
+          <h4>Turismo & Alojamientos</h4>
+          <p>Galería atractiva, disponibilidad y contacto directo para reservas.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="precios">
+    <h2 class="section-title">Planes pensados para avanzar rápido</h2>
+    <p class="section-subtitle">Todos los planes incluyen soporte personalizado, servidor optimizado en Chile y capacitación para que puedas administrar tu sitio sin depender de terceros.</p>
+    <div class="pricing-grid">
+      <div class="pricing-card">
+        <h3>Starter</h3>
+        <p class="price">$180.000 CLP <span>Ideal para emprendimientos que necesitan presencia básica y profesional.</span></p>
+        <ul>
+          <li>Landing page de 1-3 secciones</li>
+          <li>Optimización móvil y carga rápida</li>
+          <li>Formulario de contacto + WhatsApp</li>
+          <li>Entrega en 7 días</li>
+          <li>Soporte por 30 días</li>
+        </ul>
+        <a class="secondary-btn" href="https://wa.me/56949661990?text=Me%20interesa%20el%20Plan%20Starter">Quiero este plan</a>
+      </div>
+      <div class="pricing-card featured">
+        <h3>Presencia</h3>
+        <p class="price">$280.000 CLP <span>Para pymes que buscan posicionarse, mostrar servicios y captar leads.</span></p>
+        <ul>
+          <li>Sitio de hasta 5 secciones</li>
+          <li>Blog / noticias autoadministrables</li>
+          <li>Integración con Google Analytics y Meta</li>
+          <li>Búsqueda interna + SEO local</li>
+          <li>Soporte por 60 días</li>
+        </ul>
+        <a class="primary-btn" href="https://wa.me/56949661990?text=Quiero%20agendar%20Plan%20Presencia">Agendar reunión</a>
+      </div>
+      <div class="pricing-card">
+        <h3>Impulso</h3>
+        <p class="price">$480.000 CLP <span>Negocios que necesitan captar clientes recurrentes y optimizar campañas.</span></p>
+        <ul>
+          <li>Sitio completo de hasta 8 secciones</li>
+          <li>Integración con CRM o automatizaciones</li>
+          <li>Copywriting orientado a conversiones</li>
+          <li>Optimización SEO avanzada</li>
+          <li>Soporte por 90 días + mejoras mensuales</li>
+        </ul>
+        <a class="secondary-btn" href="https://wa.me/56949661990text=Estoy%20listo%20para%20el%20Plan%20Impulso">Solicitar propuesta</a>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2 class="section-title">Cómo trabajamos en 3 pasos claros</h2>
+    <div class="process">
+      <div class="process-step">
+        <span class="step-number">1</span>
+        <h3>Diagnóstico (Día 1)</h3>
+        <p>Reunión de 30 minutos para entender tu negocio, clientes y objetivos concretos.</p>
+      </div>
+      <div class="process-step">
+        <span class="step-number">2</span>
+        <h3>Prototipo & contenido (Día 2-3)</h3>
+        <p>Diseño visual + estructura de textos orientados a conversiones. Ajustamos en conjunto.</p>
+      </div>
+      <div class="process-step">
+        <span class="step-number">3</span>
+        <h3>Lanzamiento (Día 4-7)</h3>
+        <p>Desarrollo técnico, pruebas, optimización SEO y capacitación para que controles tu web.</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2 class="section-title">Historias reales de negocios chilenos</h2>
+    <div class="testimonials">
+      <div class="testimonial">
+        <p>“Con la landing que armó Carlos empezamos a recibir contactos desde la primera semana. Nos ayudó a entender qué decir y cómo mostrar nuestro trabajo.”</p>
+        <cite>Daniela Silva · Agencia Turística en Pucón</cite>
+      </div>
+      <div class="testimonial">
+        <p>“Implementamos reservas por WhatsApp y formulario, ahora tenemos la agenda llena los fines de semana. Aprecio la paciencia para explicar todo.”</p>
+        <cite>Juan Torres · Barbería Barrio Estación</cite>
+      </div>
+      <div class="testimonial">
+        <p>“El sitio carga rapidísimo, el blog está listo para publicar y el soporte post lanzamiento ha sido clave para mover campañas.”</p>
+        <cite>Claudia Mella · Consultora financiera</cite>
+      </div>
+    </div>
+  </section>
+
+  <section id="faq">
+    <h2 class="section-title">Preguntas frecuentes</h2>
+    <div class="faq">
+      <div class="faq-item">
+        <h4>¿Cuánto demora el proyecto?</h4>
+        <p>Entrega estándar en 7-10 días corridos desde que confirmamos contenido y anticipo. Si necesitas más velocidad, conversemos y ajustamos.</p>
+      </div>
+      <div class="faq-item">
+        <h4>¿Qué necesito tener antes de empezar?</h4>
+        <p>Logo, descripciones básicas de tus servicios y fotos si las tienes. Si falta algo, te guío con plantillas y banco de imágenes.</p>
+      </div>
+      <div class="faq-item">
+        <h4>¿Cómo funciona el pago?</h4>
+        <p>50% al iniciar, 50% contra entrega. Transferencia bancaria o Webpay. Emito boleta de honorarios.</p>
+      </div>
+      <div class="faq-item">
+        <h4>¿Puedo actualizar el contenido luego?</h4>
+        <p>Sí, el sitio se entrega autoadministrable. Además recibes un video breve mostrando cómo editar secciones y publicar novedades.</p>
+      </div>
+    </div>
+  </section>
+<section id="contacto" style="max-width: 600px; margin: 0 auto; padding: 2rem;">
+  <h2 style="text-align: center; font-size: 1.8rem; margin-bottom: 1rem;">Solicita tu página web</h2>
+  <p style="text-align: center; color: #666; margin-bottom: 2rem;">
+    Completa este formulario y te enviaré una propuesta personalizada sin compromiso 💻
+  </p>
+
+  <form
+    action="https://formspree.io/f/xwprnrlw"
+    method="POST"
+    style="display: flex; flex-direction: column; gap: 1rem;"
+  >
+    <label>
+      Nombre y apellido
+      <input
+        type="text"
+        name="nombre"
+        placeholder="Ej. Carlos Riquelme"
+        required
+        style="width: 100%; padding: 0.7rem; border-radius: 8px; border: 1px solid #ccc;"
+      />
+    </label>
+
+    <label>
+      Nombre del negocio o emprendimiento
+      <input
+        type="text"
+        name="negocio"
+        placeholder="Ej. Panadería La Araucana"
+        style="width: 100%; padding: 0.7rem; border-radius: 8px; border: 1px solid #ccc;"
+      />
+    </label>
+
+    <label>
+      Ciudad o región
+      <input
+        type="text"
+        name="ciudad"
+        placeholder="Ej. Temuco, Región de la Araucanía"
+        style="width: 100%; padding: 0.7rem; border-radius: 8px; border: 1px solid #ccc;"
+      />
+    </label>
+
+    <label>
+      WhatsApp o correo de contacto
+      <input
+        type="text"
+        name="contacto"
+        placeholder="+56 9 1234 5678 o correo@ejemplo.cl"
+        required
+        style="width: 100%; padding: 0.7rem; border-radius: 8px; border: 1px solid #ccc;"
+      />
+    </label>
+
+    <label>
+      ¿Qué tipo de sitio te interesa?
+      <select
+        name="tipo"
+        required
+        style="width: 100%; padding: 0.7rem; border-radius: 8px; border: 1px solid #ccc;"
+      >
+        <option value="">Selecciona una opción</option>
+        <option value="informativo">Sitio informativo (una página)</option>
+        <option value="administrable">Sitio administrable (panel de control)</option>
+        <option value="tienda">Tienda online</option>
+        <option value="otro">Otro</option>
+      </select>
+    </label>
+
+    <label>
+      Describe brevemente tu idea (opcional)
+      <textarea
+        name="mensaje"
+        rows="4"
+        placeholder="Ej. Quiero una página para mostrar mis servicios y recibir consultas."
+        style="width: 100%; padding: 0.7rem; border-radius: 8px; border: 1px solid #ccc;"
+      ></textarea>
+    </label>
+
+    <button
+      type="submit"
+      style="
+        background-color: #0070f3;
+        color: white;
+        padding: 0.9rem;
+        border: none;
+        border-radius: 8px;
+        font-size: 1rem;
+        cursor: pointer;
+      "
+    >
+      Enviar solicitud 🚀
+    </button>
+
+    <p style="text-align: center; color: #777; font-size: 0.9rem;">
+      Te responderé en menos de 2 horas.
+    </p>
+  </form>
+</section>
+
+  <footer>
+    <div class="footer-inner">
+      <p>¿Listo para darle una presencia digital confiable a tu negocio? Hablemos hoy mismo.</p>
+      <div class="footer-actions">
+        <a class="primary-btn" href="https://wa.me/56949661990?text=Hola%20Carlos,%20quiero%20una%20propuesta%20para%20mi%20sitio%20web">Hablar por WhatsApp</a>
+        <a class="secondary-btn" href="mailto:carlitisamuel@gmail.com?subject=Cotización%20sitio%20web">Enviar correo</a>
+      </div>
+      <small>© 2024 Carlos Riquelme · Desarrollo Web para Pymes en Chile</small>
+    </div>
+  </footer>
+</body>
+</html>
