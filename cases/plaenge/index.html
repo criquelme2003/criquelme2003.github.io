@@ -1,0 +1,1827 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vértice Chile — Departamentos en Santiago y Temuco</title>
+  <meta name="description" content="Constructora brasileña con 15 años en Chile y más de 800 familias entregadas. Departamentos en Santiago y Temuco. Solicita tu cotización sin compromiso.">
+  <meta property="og:title" content="Vértice Chile — Departamentos en Santiago y Temuco">
+  <meta property="og:description" content="Más de 800 familias ya tienen su departamento Vértice. 15 años construyendo en Chile, 0 proyectos suspendidos.">
+  <meta property="og:image" content="img/hero_santiago.jpg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Chivo:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+
+  <style>
+    /* ─── RESET ─────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+      }
+      html { scroll-behavior: auto; }
+    }
+
+    /* ─── TOKENS ─────────────────────────────────────── */
+    :root {
+      --bg:     #F4F1EC;
+      --accent: #8B6349;
+      --text:   #1C1916;
+      --muted:  #A49080;
+      --dark:   #1A1714;
+      --white:  #FDFBF8;
+      --f-head: 'DM Serif Display', serif;
+      --f-body: 'Chivo', sans-serif;
+    }
+
+    /* ─── BASE ───────────────────────────────────────── */
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--f-body);
+      font-weight: 300;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+    h1, h2, h3 { font-family: var(--f-head); font-weight: 400; line-height: 1.1; }
+    a { color: inherit; text-decoration: none; }
+    button { cursor: pointer; }
+    img { display: block; max-width: 100%; }
+
+    /* ─── HEADER ─────────────────────────────────────── */
+    .header {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 200;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 28px 48px;
+      transition: background 0.5s ease, padding 0.4s ease, box-shadow 0.4s ease;
+    }
+    .header.scrolled {
+      background: var(--white);
+      padding: 18px 48px;
+      box-shadow: 0 1px 0 rgba(28,25,22,0.08);
+    }
+    .logo {
+      font-family: var(--f-head);
+      font-size: 1.3rem;
+      letter-spacing: 0.18em;
+      color: white;
+      transition: color 0.5s;
+    }
+    .header.scrolled .logo { color: var(--text); }
+    .header-left {
+      font-family: var(--f-body);
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.55);
+      transition: color 0.5s;
+      min-width: 140px;
+    }
+    .header.scrolled .header-left { color: var(--muted); }
+    .header-left a:hover { color: white; }
+    .header.scrolled .header-left a:hover { color: var(--text); }
+    .header-right {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+      min-width: 140px;
+      justify-content: flex-end;
+    }
+    .brasil-nav {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-family: var(--f-body);
+      font-size: 0.68rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.5);
+      transition: color 0.3s;
+    }
+    .brasil-nav:hover { color: rgba(255,255,255,0.9); }
+    .header.scrolled .brasil-nav { color: var(--muted); }
+    .header.scrolled .brasil-nav:hover { color: var(--accent); }
+    .brasil-nav svg { transition: transform 0.3s; }
+    .brasil-nav:hover svg { transform: translateX(3px); }
+
+    /* ─── HERO ───────────────────────────────────────── */
+    .hero {
+      position: relative;
+      height: 100svh;
+      min-height: 640px;
+      overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background-size: cover;
+      background-position: center;
+      transition: opacity 1s ease;
+      will-change: opacity;
+    }
+    .hero-bg-santiago { background-image: url('img/hero_santiago.jpg'); opacity: 1; }
+    .hero-bg-temuco   { background-image: url('img/hero_temuco.jpg');   opacity: 0; }
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        160deg,
+        rgba(28,23,20,0.10) 0%,
+        rgba(28,23,20,0.05) 40%,
+        rgba(28,23,20,0.75) 100%
+      );
+    }
+    .hero-content {
+      position: relative;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 0 60px 96px;
+    }
+    .hero-text {
+      text-align: right;
+      max-width: 780px;
+      margin-left: auto;
+    }
+    .hero-eyebrow {
+      font-family: var(--f-head);
+      font-style: italic;
+      font-size: clamp(0.9rem, 1.8vw, 1.15rem);
+      color: rgba(255,255,255,0.72);
+      margin-bottom: 6px;
+      opacity: 0;
+      transform: translateY(16px);
+      animation: fadeUp 0.9s 0.4s forwards;
+    }
+    .hero-city {
+      font-family: var(--f-head);
+      font-size: clamp(4.5rem, 11vw, 9rem);
+      color: #fff;
+      letter-spacing: 0.04em;
+      line-height: 0.95;
+      opacity: 0;
+      transform: translateY(28px);
+      animation: fadeUp 0.9s 0.65s forwards;
+    }
+    .hero-trust {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 24px;
+      margin-top: 22px;
+      opacity: 0;
+      transform: translateY(12px);
+      animation: fadeUp 0.9s 0.85s forwards;
+    }
+    .hero-trust-item {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+    }
+    .hero-trust-num {
+      font-family: var(--f-head);
+      font-size: clamp(1.4rem, 2.5vw, 1.9rem);
+      color: white;
+      line-height: 1;
+    }
+    .hero-trust-label {
+      font-family: var(--f-body);
+      font-size: 0.6rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.45);
+      margin-top: 3px;
+    }
+    .hero-trust-sep {
+      width: 1px;
+      height: 32px;
+      background: rgba(255,255,255,0.2);
+    }
+    .hero-tabs {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      border-top: 1px solid rgba(255,255,255,0.18);
+    }
+    .hero-tab {
+      padding: 22px 28px;
+      font-family: var(--f-body);
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.5);
+      background: rgba(26,23,20,0.35);
+      backdrop-filter: blur(12px);
+      border: none;
+      transition: all 0.35s ease;
+      min-height: 62px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+    .hero-tab:first-child { border-right: 1px solid rgba(255,255,255,0.12); }
+    .hero-tab.active { color: white; background: rgba(139,99,73,0.55); }
+    .hero-tab:not(.active):hover { color: rgba(255,255,255,0.85); background: rgba(26,23,20,0.5); }
+    .tab-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: currentColor;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    .hero-tab.active .tab-dot { opacity: 1; }
+    .hero-scroll {
+      display: none;
+      position: absolute;
+      bottom: 72px;
+      left: 60px;
+      align-items: center;
+      gap: 10px;
+      font-family: var(--f-body);
+      font-size: 0.65rem;
+      font-weight: 500;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.4);
+      opacity: 0;
+      animation: fadeUp 1s 1.1s forwards;
+    }
+    .scroll-line {
+      width: 32px; height: 1px;
+      background: rgba(255,255,255,0.3);
+    }
+
+    /* ─── TRUST BAR ──────────────────────────────────── */
+    .trust-bar {
+      background: var(--dark);
+      padding: 0 60px;
+      display: flex;
+      align-items: stretch;
+      overflow: hidden;
+    }
+    .trust-bar-item {
+      flex: 1;
+      padding: 32px 28px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      border-right: 1px solid rgba(255,255,255,0.06);
+      opacity: 0;
+      transform: translateY(12px);
+      transition: opacity 0.55s ease, transform 0.55s ease;
+    }
+    .trust-bar-item:last-child { border-right: none; }
+    .trust-bar-item.visible { opacity: 1; transform: translateY(0); }
+    .trust-bar-item:nth-child(2) { transition-delay: 0.1s; }
+    .trust-bar-item:nth-child(3) { transition-delay: 0.2s; }
+    .trust-bar-item:nth-child(4) { transition-delay: 0.3s; }
+    .trust-bar-icon {
+      flex-shrink: 0;
+      color: var(--accent);
+    }
+    .trust-bar-text {}
+    .trust-bar-num {
+      font-family: var(--f-head);
+      font-size: 1.5rem;
+      color: white;
+      line-height: 1;
+    }
+    .trust-bar-desc {
+      font-family: var(--f-body);
+      font-size: 0.68rem;
+      font-weight: 400;
+      color: rgba(255,255,255,0.38);
+      letter-spacing: 0.04em;
+      margin-top: 3px;
+    }
+
+    /* ─── SECCIÓN: CATÁLOGO ──────────────────────────── */
+    .catalog {
+      padding: 100px 60px;
+    }
+    .section-label {
+      font-family: var(--f-body);
+      font-size: 0.68rem;
+      font-weight: 500;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 12px;
+    }
+    .catalog-header {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      margin-bottom: 56px;
+    }
+    .catalog-title {
+      font-family: var(--f-head);
+      font-style: italic;
+      font-size: clamp(2rem, 4vw, 3rem);
+      color: var(--text);
+    }
+    .catalog-filter {
+      display: flex;
+      gap: 0;
+      border: 1px solid rgba(28,25,22,0.14);
+    }
+    .filter-btn {
+      padding: 11px 22px;
+      font-family: var(--f-body);
+      font-size: 0.68rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      border: none;
+      background: none;
+      color: var(--muted);
+      min-height: 44px;
+      transition: all 0.25s;
+    }
+    .filter-btn:first-child { border-right: 1px solid rgba(28,25,22,0.14); }
+    .filter-btn.active { background: var(--text); color: white; }
+    .filter-btn:not(.active):hover { color: var(--text); }
+
+    /* Grid */
+    .catalog-grid {
+      display: grid;
+      grid-template-columns: 60fr 40fr;
+      gap: 3px;
+      margin-bottom: 3px;
+    }
+    .catalog-row-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3px;
+    }
+
+    /* Project Cards */
+    .project-card {
+      position: relative;
+      overflow: hidden;
+      display: block;
+    }
+    .project-card[data-city="temuco"] { display: none; }
+    body.city-temuco .project-card[data-city="santiago"] { display: none; }
+    body.city-temuco .project-card[data-city="temuco"] { display: block; }
+
+    .card-img {
+      width: 100%;
+      min-height: 380px;
+      background-color: #C9BEB5;
+      background-size: cover;
+      background-position: center;
+      transition: transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      position: relative;
+    }
+    .project-card.large .card-img { min-height: 540px; }
+    .project-card:hover .card-img { transform: scale(1.04); }
+
+    .card-badge {
+      position: absolute;
+      top: 16px;
+      left: 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(26,23,20,0.78);
+      backdrop-filter: blur(8px);
+      padding: 7px 12px;
+      z-index: 2;
+    }
+    .badge-bar-wrap {
+      width: 52px;
+      height: 2px;
+      background: rgba(255,255,255,0.2);
+      border-radius: 1px;
+      overflow: hidden;
+    }
+    .badge-bar-fill {
+      height: 100%;
+      background: var(--accent);
+      border-radius: 1px;
+    }
+    .badge-text {
+      font-family: var(--f-body);
+      font-size: 0.6rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.65);
+    }
+    .badge-pct {
+      font-family: var(--f-head);
+      font-size: 0.85rem;
+      color: white;
+    }
+
+    .card-body { padding: 20px 0 0; }
+    .card-status {
+      font-family: var(--f-head);
+      font-style: italic;
+      font-size: 0.82rem;
+      color: var(--muted);
+      margin-bottom: 3px;
+    }
+    .card-name {
+      font-family: var(--f-body);
+      font-size: 0.78rem;
+      font-weight: 500;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--text);
+      margin-bottom: 5px;
+    }
+    .card-specs {
+      font-family: var(--f-head);
+      font-style: italic;
+      font-size: 0.82rem;
+      color: var(--muted);
+    }
+    .card-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 12px;
+      font-family: var(--f-body);
+      font-size: 0.68rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--accent);
+      opacity: 0;
+      transform: translateX(-6px);
+      transition: opacity 0.3s, transform 0.3s;
+    }
+    .project-card:hover .card-link {
+      opacity: 1;
+      transform: translateX(0);
+    }
+    .card-link svg { flex-shrink: 0; }
+
+    /* CTA intermedio */
+    .catalog-cta {
+      margin-top: 48px;
+      padding-top: 48px;
+      border-top: 1px solid rgba(28,25,22,0.08);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+    .catalog-cta-text {
+      font-family: var(--f-head);
+      font-style: italic;
+      font-size: clamp(1rem, 2vw, 1.3rem);
+      color: var(--muted);
+    }
+    .btn-outline {
+      flex-shrink: 0;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 14px 28px;
+      border: 1px solid rgba(28,25,22,0.22);
+      font-family: var(--f-body);
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text);
+      transition: all 0.3s;
+      min-height: 44px;
+    }
+    .btn-outline:hover {
+      background: var(--text);
+      color: white;
+      border-color: var(--text);
+    }
+    .btn-outline svg { transition: transform 0.3s; }
+    .btn-outline:hover svg { transform: translateX(4px); }
+
+    /* ─── POR QUÉ VÉRTICE ────────────────────────────── */
+    .why {
+      background: var(--dark);
+      padding: 120px 60px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 100px;
+      align-items: center;
+    }
+    .why-stats {
+      display: flex;
+      flex-direction: column;
+      gap: 52px;
+    }
+    .stat-number {
+      font-family: var(--f-head);
+      font-size: clamp(4rem, 8vw, 6.5rem);
+      color: var(--accent);
+      line-height: 1;
+      letter-spacing: -0.02em;
+    }
+    .stat-label {
+      font-family: var(--f-body);
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.35);
+      margin-top: 6px;
+    }
+    .stat-divider {
+      width: 40px; height: 1px;
+      background: rgba(139,99,73,0.35);
+      margin-top: 28px;
+    }
+    .why-eyebrow {
+      font-family: var(--f-body);
+      font-size: 0.68rem;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 28px;
+    }
+    .why-headline {
+      font-family: var(--f-head);
+      font-style: italic;
+      font-size: clamp(1.8rem, 3.2vw, 2.6rem);
+      color: white;
+      margin-bottom: 28px;
+      line-height: 1.2;
+    }
+    .why-body {
+      font-family: var(--f-body);
+      font-size: 0.95rem;
+      font-weight: 300;
+      color: rgba(255,255,255,0.48);
+      line-height: 1.85;
+      margin-bottom: 16px;
+    }
+    .why-body em { color: rgba(255,255,255,0.75); font-style: normal; }
+    .brasil-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 32px;
+      padding: 15px 28px;
+      border: 1px solid rgba(139,99,73,0.4);
+      color: var(--accent);
+      font-family: var(--f-body);
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      transition: all 0.35s;
+    }
+    .brasil-cta:hover { background: var(--accent); color: white; border-color: var(--accent); }
+    .brasil-cta svg { transition: transform 0.3s; }
+    .brasil-cta:hover svg { transform: translateX(4px); }
+
+    /* ─── PROCESO ────────────────────────────────────── */
+    .proceso {
+      padding: 120px 60px;
+      border-top: 1px solid rgba(28,25,22,0.07);
+    }
+    .proceso-header {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: end;
+      margin-bottom: 80px;
+    }
+    .proceso-headline {
+      font-family: var(--f-head);
+      font-style: italic;
+      font-size: clamp(2rem, 4vw, 3rem);
+      color: var(--text);
+      line-height: 1.1;
+    }
+    .proceso-intro {
+      font-family: var(--f-body);
+      font-size: 0.92rem;
+      font-weight: 300;
+      color: var(--muted);
+      line-height: 1.8;
+    }
+    .proceso-steps {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0;
+      position: relative;
+    }
+    .proceso-steps::before {
+      content: '';
+      position: absolute;
+      top: 22px;
+      left: calc(12.5% + 12px);
+      right: calc(12.5% + 12px);
+      height: 1px;
+      background: rgba(28,25,22,0.1);
+    }
+    .paso {
+      padding: 0 24px;
+      position: relative;
+    }
+    .paso:first-child { padding-left: 0; }
+    .paso:last-child { padding-right: 0; }
+    .paso-num-wrap {
+      display: flex;
+      align-items: center;
+      margin-bottom: 28px;
+    }
+    .paso-num {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: var(--bg);
+      border: 1px solid rgba(28,25,22,0.14);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--f-head);
+      font-style: italic;
+      font-size: 1rem;
+      color: var(--accent);
+      flex-shrink: 0;
+      position: relative;
+      z-index: 1;
+      transition: background 0.3s, border-color 0.3s;
+    }
+    .paso:hover .paso-num {
+      background: var(--accent);
+      color: white;
+      border-color: var(--accent);
+    }
+    .paso-name {
+      font-family: var(--f-body);
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text);
+      margin-bottom: 10px;
+    }
+    .paso-desc {
+      font-family: var(--f-body);
+      font-size: 0.85rem;
+      font-weight: 300;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+    .paso-time {
+      display: inline-block;
+      margin-top: 12px;
+      font-family: var(--f-head);
+      font-style: italic;
+      font-size: 0.78rem;
+      color: rgba(164,144,128,0.7);
+    }
+
+    /* ─── TESTIMONIALES ──────────────────────────────── */
+    .testimonios {
+      background: var(--dark);
+      padding: 120px 60px;
+      overflow: hidden;
+    }
+    .testimonios-header {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      margin-bottom: 64px;
+    }
+    .testimonios-headline {
+      font-family: var(--f-head);
+      font-style: italic;
+      font-size: clamp(1.8rem, 3.2vw, 2.5rem);
+      color: white;
+      max-width: 420px;
+      line-height: 1.2;
+    }
+    .testimonios-total {
+      font-family: var(--f-body);
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.25);
+    }
+    .testimonios-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+    }
+    .testimonio {
+      background: rgba(255,255,255,0.03);
+      padding: 44px 40px;
+      border: 1px solid rgba(255,255,255,0.05);
+      transition: background 0.3s;
+    }
+    .testimonio:hover { background: rgba(255,255,255,0.055); }
+    .testimonio-quote {
+      font-family: var(--f-head);
+      font-style: italic;
+      font-size: clamp(1.05rem, 1.6vw, 1.25rem);
+      color: white;
+      line-height: 1.55;
+      margin-bottom: 36px;
+    }
+    .testimonio-quote::before {
+      content: '\201C';
+      display: block;
+      font-size: 3rem;
+      line-height: 0.8;
+      color: var(--accent);
+      margin-bottom: 16px;
+      font-style: normal;
+    }
+    .testimonio-person {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding-top: 28px;
+      border-top: 1px solid rgba(255,255,255,0.07);
+    }
+    .testimonio-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: rgba(139,99,73,0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--f-head);
+      font-size: 0.9rem;
+      color: var(--accent);
+      flex-shrink: 0;
+    }
+    .testimonio-name {
+      font-family: var(--f-body);
+      font-size: 0.78rem;
+      font-weight: 500;
+      color: white;
+    }
+    .testimonio-meta {
+      font-family: var(--f-head);
+      font-style: italic;
+      font-size: 0.75rem;
+      color: rgba(255,255,255,0.3);
+      margin-top: 2px;
+    }
+
+    /* ─── GALERÍA AMENITIES ──────────────────────────── */
+    .gallery {
+      padding: 100px 60px;
+      overflow: hidden;
+    }
+    .gallery-head {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      margin-bottom: 48px;
+    }
+    .gallery-title {
+      font-family: var(--f-head);
+      font-style: italic;
+      font-size: clamp(1.8rem, 3.2vw, 2.5rem);
+      color: var(--text);
+      max-width: 380px;
+    }
+    .gallery-tabs { display: flex; gap: 0; }
+    .gallery-tab {
+      padding: 10px 20px;
+      font-family: var(--f-body);
+      font-size: 0.68rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      border: none;
+      background: none;
+      color: var(--muted);
+      min-height: 44px;
+      border-bottom: 1px solid transparent;
+      transition: all 0.25s;
+    }
+    .gallery-tab.active { color: var(--text); border-bottom-color: var(--accent); }
+    .gallery-tab:not(.active):hover { color: var(--text); }
+    .masonry {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      grid-template-rows: 300px 300px;
+      gap: 4px;
+    }
+    .masonry-item {
+      background-color: #C9BEB5;
+      background-size: cover;
+      background-position: center;
+      overflow: hidden;
+      position: relative;
+      transition: transform 0.6s ease;
+    }
+    .masonry-item:hover { transform: scale(1.02); }
+    .masonry-item:first-child { grid-row: span 2; }
+    .gallery-panel { display: none; }
+    .gallery-panel.active { display: grid; }
+
+    /* ─── FORMULARIO ─────────────────────────────────── */
+    .form-section {
+      padding: 120px 60px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 100px;
+      align-items: start;
+      border-top: 1px solid rgba(28,25,22,0.08);
+    }
+    .form-headline {
+      font-family: var(--f-head);
+      font-style: italic;
+      font-size: clamp(2rem, 3.5vw, 2.8rem);
+      color: var(--text);
+      margin-bottom: 16px;
+      line-height: 1.15;
+    }
+    .form-subtext {
+      font-family: var(--f-body);
+      font-size: 0.92rem;
+      font-weight: 300;
+      color: var(--muted);
+      line-height: 1.8;
+    }
+    .form-guarantees {
+      margin-top: 40px;
+      padding-top: 40px;
+      border-top: 1px solid rgba(28,25,22,0.1);
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+    .form-guarantee {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+    }
+    .form-guarantee-icon {
+      flex-shrink: 0;
+      margin-top: 1px;
+      color: var(--accent);
+    }
+    .form-guarantee-text {
+      font-family: var(--f-body);
+      font-size: 0.85rem;
+      font-weight: 300;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+    .form-guarantee-text strong {
+      display: block;
+      font-weight: 500;
+      color: var(--text);
+      font-size: 0.8rem;
+      letter-spacing: 0.04em;
+      margin-bottom: 2px;
+    }
+    .form-group { margin-bottom: 28px; }
+    .form-group label {
+      display: block;
+      font-family: var(--f-body);
+      font-size: 0.65rem;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 10px;
+    }
+    .form-group input,
+    .form-group select {
+      width: 100%;
+      padding: 12px 0;
+      background: none;
+      border: none;
+      border-bottom: 1px solid rgba(28,25,22,0.18);
+      font-family: var(--f-body);
+      font-size: 0.92rem;
+      font-weight: 300;
+      color: var(--text);
+      outline: none;
+      transition: border-color 0.3s;
+      min-height: 44px;
+      -webkit-appearance: none;
+    }
+    .form-group input::placeholder { color: rgba(164,144,128,0.5); }
+    .form-group input:focus,
+    .form-group select:focus { border-bottom-color: var(--accent); }
+    .form-group select { cursor: pointer; }
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+    .form-submit {
+      width: 100%;
+      padding: 17px;
+      background: var(--text);
+      color: white;
+      border: none;
+      font-family: var(--f-body);
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      transition: background 0.3s;
+      margin-top: 8px;
+      min-height: 52px;
+    }
+    .form-submit:hover { background: var(--accent); }
+    .form-response-time {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 16px;
+      font-family: var(--f-body);
+      font-size: 0.7rem;
+      font-weight: 300;
+      color: rgba(164,144,128,0.7);
+    }
+    .form-response-time::before {
+      content: '';
+      display: inline-block;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #7aba78;
+      flex-shrink: 0;
+    }
+    .form-legal {
+      font-family: var(--f-body);
+      font-size: 0.65rem;
+      font-weight: 300;
+      color: rgba(164,144,128,0.6);
+      margin-top: 12px;
+      line-height: 1.7;
+    }
+    .form-legal a { text-decoration: underline; }
+
+    /* ─── FOOTER ─────────────────────────────────────── */
+    footer {
+      background: var(--dark);
+      padding: 56px 60px;
+    }
+    .footer-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-bottom: 40px;
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+      margin-bottom: 32px;
+    }
+    .footer-logo {
+      font-family: var(--f-head);
+      font-size: 1.5rem;
+      letter-spacing: 0.18em;
+      color: white;
+    }
+    .footer-brasil {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--f-body);
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.35);
+      transition: color 0.3s;
+    }
+    .footer-brasil:hover { color: var(--accent); }
+    .footer-brasil svg { transition: transform 0.3s; }
+    .footer-brasil:hover svg { transform: translateX(3px); }
+    .footer-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+    .footer-links {
+      display: flex;
+      gap: 28px;
+      list-style: none;
+    }
+    .footer-links a {
+      font-family: var(--f-body);
+      font-size: 0.68rem;
+      font-weight: 400;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.3);
+      transition: color 0.25s;
+    }
+    .footer-links a:hover { color: rgba(255,255,255,0.7); }
+    .footer-copy {
+      font-family: var(--f-body);
+      font-size: 0.68rem;
+      font-weight: 300;
+      color: rgba(255,255,255,0.2);
+    }
+
+    /* ─── ANIMACIONES ────────────────────────────────── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    /* Reveal solo activo con JS cargado (progressive enhancement) */
+    .js-ready .reveal {
+      opacity: 0;
+      transform: translateY(36px);
+      transition: opacity 0.75s ease, transform 0.75s ease;
+    }
+    .js-ready .reveal.visible { opacity: 1; transform: translateY(0); }
+    .js-ready .reveal-d1 { transition-delay: 0.1s; }
+    .js-ready .reveal-d2 { transition-delay: 0.2s; }
+    .js-ready .reveal-d3 { transition-delay: 0.3s; }
+    .js-ready .reveal-d4 { transition-delay: 0.4s; }
+
+    .js-ready .trust-bar-item {
+      opacity: 0;
+      transform: translateY(12px);
+    }
+    .js-ready .trust-bar-item.visible { opacity: 1; transform: translateY(0); }
+
+    .count-num { display: inline-block; }
+
+    /* ─── RESPONSIVE ─────────────────────────────────── */
+    @media (min-width: 901px) { .hero-scroll { display: flex; } }
+
+    @media (max-width: 1100px) {
+      .proceso-steps { grid-template-columns: 1fr 1fr; gap: 48px; }
+      .proceso-steps::before { display: none; }
+      .testimonios-grid { grid-template-columns: 1fr; gap: 2px; }
+    }
+
+    @media (max-width: 900px) {
+      .header { padding: 20px 28px; }
+      .header.scrolled { padding: 16px 28px; }
+      .header-left { display: none; }
+
+      .hero-content { padding: 0 28px 80px; }
+      .hero-text { text-align: left; margin-left: 0; }
+      .hero-trust { justify-content: flex-start; }
+      .hero-scroll { left: 28px; }
+
+      .trust-bar { flex-wrap: wrap; padding: 0 28px; }
+      .trust-bar-item { flex: 1 1 45%; border-right: none; border-bottom: 1px solid rgba(255,255,255,0.06); padding: 24px 16px; }
+      .trust-bar-item:last-child { border-bottom: none; }
+
+      .catalog { padding: 64px 28px; }
+      .catalog-header { flex-direction: column; align-items: flex-start; gap: 20px; }
+      .catalog-grid { grid-template-columns: 1fr; }
+      .catalog-row-2 { grid-template-columns: 1fr; }
+      .card-img { min-height: 280px !important; }
+      .catalog-cta { flex-direction: column; align-items: flex-start; }
+
+      .why { padding: 80px 28px; grid-template-columns: 1fr; gap: 56px; }
+      .why-stats { flex-direction: row; flex-wrap: wrap; gap: 32px; }
+
+      .proceso { padding: 80px 28px; }
+      .proceso-header { grid-template-columns: 1fr; gap: 24px; }
+      .proceso-steps { grid-template-columns: 1fr 1fr; gap: 40px; }
+      .proceso-steps::before { display: none; }
+      .paso { padding: 0; }
+
+      .testimonios { padding: 80px 28px; }
+      .testimonios-header { flex-direction: column; align-items: flex-start; gap: 16px; }
+      .testimonios-grid { grid-template-columns: 1fr; }
+
+      .gallery { padding: 64px 28px; }
+      .gallery-head { flex-direction: column; align-items: flex-start; gap: 24px; }
+      .gallery-tabs { width: 100%; }
+      .gallery-tab { flex: 1; padding: 10px 8px; font-size: 0.6rem; }
+      .masonry { grid-template-columns: 1fr 1fr; grid-template-rows: auto; }
+      .masonry-item { min-height: 200px; }
+      .masonry-item:first-child { grid-column: span 2; grid-row: span 1; min-height: 280px; }
+
+      .form-section { padding: 80px 28px; grid-template-columns: 1fr; gap: 52px; }
+      .form-row { grid-template-columns: 1fr; }
+
+      footer { padding: 48px 28px; }
+      .footer-top { flex-direction: column; align-items: flex-start; gap: 20px; }
+      .footer-bottom { flex-direction: column; gap: 20px; }
+      .footer-links { flex-wrap: wrap; gap: 16px; }
+    }
+
+    @media (max-width: 600px) {
+      .proceso-steps { grid-template-columns: 1fr; }
+      .masonry { grid-template-columns: 1fr; }
+      .masonry-item:first-child { grid-column: span 1; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ── HEADER ──────────────────────────────────────────── -->
+  <header class="header" id="site-header">
+    <div class="header-left">
+      <a href="#catalogo">Proyectos</a>
+    </div>
+    <a href="#" class="logo" aria-label="Vértice — inicio">VÉRTICE</a>
+    <div class="header-right">
+      <a href="#contacto" class="brasil-nav" aria-label="Contactar a Vértice">
+        Contacto
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
+      </a>
+    </div>
+  </header>
+
+
+  <!-- ── HERO [HOOK] ──────────────────────────────────────── -->
+  <section class="hero" aria-label="Proyectos Vértice en Chile">
+    <div class="hero-bg hero-bg-santiago" id="bg-santiago" aria-hidden="true"></div>
+    <div class="hero-bg hero-bg-temuco"   id="bg-temuco"   aria-hidden="true"></div>
+    <div class="hero-overlay" aria-hidden="true"></div>
+
+    <div class="hero-content">
+      <div class="hero-scroll" aria-hidden="true">
+        <span class="scroll-line"></span>
+        Ver proyectos
+      </div>
+
+      <div class="hero-text">
+        <p class="hero-eyebrow" id="hero-eyebrow">Departamentos en</p>
+        <h1 class="hero-city" id="hero-city">SANTIAGO</h1>
+        <div class="hero-trust" aria-label="Indicadores de confianza Vértice">
+          <div class="hero-trust-item">
+            <span class="hero-trust-num"><span class="count-num" data-target="800">0</span>+</span>
+            <span class="hero-trust-label">Familias entregadas</span>
+          </div>
+          <div class="hero-trust-sep" aria-hidden="true"></div>
+          <div class="hero-trust-item">
+            <span class="hero-trust-num">15</span>
+            <span class="hero-trust-label">Años en Chile</span>
+          </div>
+          <div class="hero-trust-sep" aria-hidden="true"></div>
+          <div class="hero-trust-item">
+            <span class="hero-trust-num">0</span>
+            <span class="hero-trust-label">Proyectos suspendidos</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-tabs" role="tablist" aria-label="Seleccionar ciudad">
+      <button class="hero-tab active" role="tab" aria-selected="true"  data-city="santiago" id="tab-santiago">
+        <span class="tab-dot" aria-hidden="true"></span>
+        Santiago
+      </button>
+      <button class="hero-tab"        role="tab" aria-selected="false" data-city="temuco"   id="tab-temuco">
+        <span class="tab-dot" aria-hidden="true"></span>
+        Temuco
+      </button>
+    </div>
+  </section>
+
+
+  <!-- ── TRUST BAR [VALIDACIÓN] ───────────────────────────── -->
+  <div class="trust-bar" aria-label="Credenciales Vértice">
+    <div class="trust-bar-item">
+      <div class="trust-bar-icon" aria-hidden="true">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      </div>
+      <div class="trust-bar-text">
+        <div class="trust-bar-num">50 años</div>
+        <div class="trust-bar-desc">De trayectoria en Brasil</div>
+      </div>
+    </div>
+    <div class="trust-bar-item">
+      <div class="trust-bar-icon" aria-hidden="true">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+      </div>
+      <div class="trust-bar-text">
+        <div class="trust-bar-num">11 ciudades</div>
+        <div class="trust-bar-desc">Con proyectos activos</div>
+      </div>
+    </div>
+    <div class="trust-bar-item">
+      <div class="trust-bar-icon" aria-hidden="true">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+      </div>
+      <div class="trust-bar-text">
+        <div class="trust-bar-num">+800 familias</div>
+        <div class="trust-bar-desc">Con llaves en mano en Chile</div>
+      </div>
+    </div>
+    <div class="trust-bar-item">
+      <div class="trust-bar-icon" aria-hidden="true">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+      </div>
+      <div class="trust-bar-text">
+        <div class="trust-bar-num">0 suspendidos</div>
+        <div class="trust-bar-desc">Ningún proyecto paralizado en 15 años</div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ── CATÁLOGO [PRUEBA] ────────────────────────────────── -->
+  <section class="catalog" id="catalogo" aria-labelledby="catalog-heading">
+
+    <div class="catalog-header reveal">
+      <div>
+        <p class="section-label">Proyectos disponibles</p>
+        <h2 class="catalog-title" id="catalog-heading">
+          <span id="catalog-city-label">Santiago</span>
+        </h2>
+      </div>
+      <div class="catalog-filter" role="group" aria-label="Filtrar por ciudad">
+        <button class="filter-btn active" data-filter="santiago">Santiago</button>
+        <button class="filter-btn"        data-filter="temuco">Temuco</button>
+      </div>
+    </div>
+
+    <!-- SANTIAGO -->
+    <div id="grid-santiago">
+      <div class="catalog-grid">
+        <article class="project-card large reveal reveal-d1" data-city="santiago">
+          <div class="card-img" style="background-image: url('img/santiago_featured.webp');" role="img" aria-label="Distrito Paulista II — render exterior">
+            <div class="card-badge" aria-label="73% vendido">
+              <div class="badge-bar-wrap"><div class="badge-bar-fill" style="width:73%"></div></div>
+              <span class="badge-pct">73%</span>
+              <span class="badge-text">vendido</span>
+            </div>
+          </div>
+          <div class="card-body">
+            <p class="card-status">Venta en verde</p>
+            <p class="card-name">Distrito Paulista II</p>
+            <p class="card-specs">Santiago, Región Metropolitana · 1, 2 y 3 dormitorios · 47 a 136 m²</p>
+            <span class="card-link" aria-hidden="true">
+              Ver proyecto
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </span>
+          </div>
+        </article>
+
+        <article class="project-card reveal reveal-d2" data-city="santiago">
+          <div class="card-img" style="background-image: url('img/santiago_secondary.jpg');" role="img" aria-label="Distrito Paulista — render exterior">
+            <div class="card-badge" aria-label="91% vendido">
+              <div class="badge-bar-wrap"><div class="badge-bar-fill" style="width:91%"></div></div>
+              <span class="badge-pct">91%</span>
+              <span class="badge-text">vendido</span>
+            </div>
+          </div>
+          <div class="card-body">
+            <p class="card-status">Últimas unidades</p>
+            <p class="card-name">Distrito Paulista</p>
+            <p class="card-specs">Santiago, Región Metropolitana · 1, 2 y 3 dormitorios · 52 a 137 m²</p>
+            <span class="card-link" aria-hidden="true">
+              Ver proyecto
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </span>
+          </div>
+        </article>
+      </div>
+    </div>
+
+    <!-- TEMUCO -->
+    <div id="grid-temuco" style="display:none;">
+      <div class="catalog-grid">
+        <article class="project-card large reveal reveal-d1" data-city="temuco">
+          <div class="card-img" style="background-image: url('img/temuco_featured.jpeg');" role="img" aria-label="Ópera — render exterior">
+            <div class="card-badge" aria-label="Lanzamiento">
+              <span class="badge-text" style="letter-spacing:0.12em;">Lanzamiento</span>
+            </div>
+          </div>
+          <div class="card-body">
+            <p class="card-status">Lanzamiento</p>
+            <p class="card-name">Ópera</p>
+            <p class="card-specs">Temuco, Región de La Araucanía · 2, 3 y 4 dormitorios · 104 a 173 m²</p>
+            <span class="card-link" aria-hidden="true">
+              Ver proyecto
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </span>
+          </div>
+        </article>
+
+        <article class="project-card reveal reveal-d2" data-city="temuco">
+          <div class="card-img" style="background-image: url('img/temuco_secondary.avif');" role="img" aria-label="Soul Live Inside — render exterior">
+            <div class="card-badge" aria-label="58% vendido">
+              <div class="badge-bar-wrap"><div class="badge-bar-fill" style="width:58%"></div></div>
+              <span class="badge-pct">58%</span>
+              <span class="badge-text">vendido</span>
+            </div>
+          </div>
+          <div class="card-body">
+            <p class="card-status">Venta en verde</p>
+            <p class="card-name">Soul Live Inside</p>
+            <p class="card-specs">Temuco, Región de La Araucanía · 1, 2 y 3 dormitorios · 59 a 123 m²</p>
+            <span class="card-link" aria-hidden="true">
+              Ver proyecto
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </span>
+          </div>
+        </article>
+      </div>
+
+      <div class="catalog-row-2" style="margin-top:3px;">
+        <article class="project-card reveal reveal-d3" data-city="temuco">
+          <div class="card-img" style="background-color: #C9BEB5;" role="img" aria-label="Brasilia View — render exterior">
+            <div class="card-badge" aria-label="Entrega inmediata">
+              <span class="badge-text" style="letter-spacing:0.12em;">Entrega inmediata</span>
+            </div>
+          </div>
+          <div class="card-body">
+            <p class="card-status">Entrega inmediata</p>
+            <p class="card-name">Brasilia View</p>
+            <p class="card-specs">Temuco · 2 y 3 dormitorios · 89 a 149 m²</p>
+            <span class="card-link" aria-hidden="true">
+              Ver proyecto
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </span>
+          </div>
+        </article>
+
+        <article class="project-card reveal reveal-d4" data-city="temuco">
+          <div class="card-img" style="background-color: #BEB4AA;" role="img" aria-label="Belo Horizonte — render exterior">
+            <div class="card-badge" aria-label="Entrega inmediata">
+              <span class="badge-text" style="letter-spacing:0.12em;">Entrega inmediata</span>
+            </div>
+          </div>
+          <div class="card-body">
+            <p class="card-status">Entrega inmediata</p>
+            <p class="card-name">Belo Horizonte</p>
+            <p class="card-specs">Temuco · Casas 3 y 4 dormitorios · 107 a 140 m²</p>
+            <span class="card-link" aria-hidden="true">
+              Ver proyecto
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </span>
+          </div>
+        </article>
+      </div>
+    </div>
+
+    <!-- CTA intermedia -->
+    <div class="catalog-cta reveal">
+      <p class="catalog-cta-text">¿Quieres ver más proyectos o hablar de precios sin rodeos?</p>
+      <a href="#contacto" class="btn-outline">
+        Habla con un ejecutivo
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+    </div>
+
+  </section>
+
+
+  <!-- ── POR QUÉ VÉRTICE [DIFERENCIACIÓN] ────────────────── -->
+  <section class="why" aria-labelledby="why-heading">
+
+    <div class="why-stats" aria-hidden="true">
+      <div class="reveal">
+        <div class="stat-number"><span class="count-num" data-target="50">0</span></div>
+        <div class="stat-label">Años de historia en Brasil</div>
+        <div class="stat-divider"></div>
+      </div>
+      <div class="reveal reveal-d1">
+        <div class="stat-number"><span class="count-num" data-target="15">0</span></div>
+        <div class="stat-label">Años construyendo en Chile sin pausas</div>
+        <div class="stat-divider"></div>
+      </div>
+      <div class="reveal reveal-d2">
+        <div class="stat-number"><span class="count-num" data-target="800">0</span>+</div>
+        <div class="stat-label">Departamentos entregados en Chile</div>
+      </div>
+    </div>
+
+    <div class="why-text reveal reveal-d1">
+      <p class="why-eyebrow">Por qué Vértice</p>
+      <h2 class="why-headline" id="why-heading">
+        El mercado chileno nos eligió.<br>No al revés.
+      </h2>
+      <p class="why-body">
+        Llevamos <em>50 años desarrollando proyectos residenciales en Brasil</em>.
+        Llegamos a Chile en 2010 porque nuestros compradores nos lo pidieron.
+        No exportamos planos — cada proyecto parte del barrio, del clima y de lo
+        que la gente aquí efectivamente necesita.
+      </p>
+      <p class="why-body">
+        En 15 años no suspendimos ni un solo proyecto. En un mercado donde eso
+        no se puede dar por sentado, <em>es el diferenciador que más importa</em>.
+      </p>
+      <a href="#contacto" class="brasil-cta">
+        Ver todos los proyectos
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
+      </a>
+    </div>
+
+  </section>
+
+
+  <!-- ── PROCESO [PROCESO] ────────────────────────────────── -->
+  <section class="proceso" aria-labelledby="proceso-heading">
+
+    <div class="proceso-header reveal">
+      <div>
+        <p class="section-label">Sin sorpresas</p>
+        <h2 class="proceso-headline" id="proceso-heading">
+          Cómo es comprar<br>con Vértice
+        </h2>
+      </div>
+      <p class="proceso-intro">
+        Comprar un departamento tiene muchas partes móviles. Así es el proceso
+        con nosotros: cuatro pasos, tiempos claros, y un ejecutivo dedicado
+        desde la primera llamada hasta el día que recibes las llaves.
+      </p>
+    </div>
+
+    <div class="proceso-steps">
+      <div class="paso reveal reveal-d1">
+        <div class="paso-num-wrap">
+          <div class="paso-num" aria-hidden="true">1</div>
+        </div>
+        <p class="paso-name">Cotización</p>
+        <p class="paso-desc">Nos cuentas qué proyecto te interesa y cuántos dormitorios necesitas. Te enviamos precios, plantas disponibles y condiciones de pago.</p>
+        <span class="paso-time">Respuesta en menos de 2 horas</span>
+      </div>
+
+      <div class="paso reveal reveal-d2">
+        <div class="paso-num-wrap">
+          <div class="paso-num" aria-hidden="true">2</div>
+        </div>
+        <p class="paso-name">Reserva</p>
+        <p class="paso-desc">Con una reserva separas la unidad. Tu ejecutivo te guía con los requisitos para el crédito hipotecario y la documentación del banco.</p>
+        <span class="paso-time">Proceso: 1 a 2 semanas</span>
+      </div>
+
+      <div class="paso reveal reveal-d3">
+        <div class="paso-num-wrap">
+          <div class="paso-num" aria-hidden="true">3</div>
+        </div>
+        <p class="paso-name">Promesa de compraventa</p>
+        <p class="paso-desc">Se firma ante notario con los plazos acordados. Desde aquí puedes hacer seguimiento del avance de obra en tiempo real.</p>
+        <span class="paso-time">Duración: según etapa del proyecto</span>
+      </div>
+
+      <div class="paso reveal reveal-d4">
+        <div class="paso-num-wrap">
+          <div class="paso-num" aria-hidden="true">4</div>
+        </div>
+        <p class="paso-name">Entrega de llaves</p>
+        <p class="paso-desc">Visitas el departamento terminado, firmamos la escritura y recibes las llaves. Postventa disponible por dos años.</p>
+        <span class="paso-time">Garantía postventa: 2 años</span>
+      </div>
+    </div>
+
+  </section>
+
+
+  <!-- ── TESTIMONIALES [VALIDACIÓN] ───────────────────────── -->
+  <section class="testimonios" aria-labelledby="testimonios-heading">
+
+    <div class="testimonios-header reveal">
+      <h2 class="testimonios-headline" id="testimonios-heading">
+        Lo que dicen quienes<br>ya recibieron sus llaves
+      </h2>
+      <span class="testimonios-total" aria-hidden="true">+800 familias en Chile</span>
+    </div>
+
+    <div class="testimonios-grid">
+      <article class="testimonio reveal reveal-d1">
+        <blockquote class="testimonio-quote">
+          Investigué cinco constructoras antes de decidirme. Lo que me convenció de Vértice fue que todos sus proyectos anteriores estaban terminados. En Chile eso no es menor.
+        </blockquote>
+        <div class="testimonio-person">
+          <div class="testimonio-avatar" aria-hidden="true">M</div>
+          <div>
+            <p class="testimonio-name">Marcela Fuentes</p>
+            <p class="testimonio-meta">Distrito Paulista · Santiago · 2024</p>
+          </div>
+        </div>
+      </article>
+
+      <article class="testimonio reveal reveal-d2">
+        <blockquote class="testimonio-quote">
+          El proceso fue más simple de lo que esperaba. El ejecutivo me avisó en cada paso, incluso cuándo tramitar el crédito para que calzara con la entrega.
+        </blockquote>
+        <div class="testimonio-person">
+          <div class="testimonio-avatar" aria-hidden="true">R</div>
+          <div>
+            <p class="testimonio-name">Rodrigo Ibáñez</p>
+            <p class="testimonio-meta">Soul Live Inside · Temuco · 2023</p>
+          </div>
+        </div>
+      </article>
+
+      <article class="testimonio reveal reveal-d3">
+        <blockquote class="testimonio-quote">
+          El departamento tiene más luz natural que cualquier otro que visité. Eso del diseño brasileño no es marketing — se nota en cómo están orientados los espacios.
+        </blockquote>
+        <div class="testimonio-person">
+          <div class="testimonio-avatar" aria-hidden="true">C</div>
+          <div>
+            <p class="testimonio-name">Carla Mardones</p>
+            <p class="testimonio-meta">Brasilia View · Temuco · 2023</p>
+          </div>
+        </div>
+      </article>
+    </div>
+
+  </section>
+
+
+  <!-- ── GALERÍA AMENITIES ────────────────────────────────── -->
+  <section class="gallery" aria-labelledby="gallery-heading">
+
+    <div class="gallery-head reveal">
+      <h2 class="gallery-title" id="gallery-heading">
+        Lo que no aparece<br>en el plano
+      </h2>
+      <div class="gallery-tabs" role="tablist" aria-label="Categoría de espacios">
+        <button class="gallery-tab active" data-gtab="lazer">Áreas de lazer</button>
+        <button class="gallery-tab" data-gtab="comun">Áreas comunes</button>
+        <button class="gallery-tab" data-gtab="exterior">Exteriores</button>
+      </div>
+    </div>
+
+    <div class="masonry gallery-panel active" id="gallery-lazer" role="tabpanel">
+      <div class="masonry-item" style="background-image: url('img/amenity_01.webp');" role="img" aria-label="Área de lazer — espacio principal"></div>
+      <div class="masonry-item" style="background-image: url('img/amenity_02.webp');" role="img" aria-label="Gym equipado"></div>
+      <div class="masonry-item" style="background-color: #B8ADA4;" role="img" aria-label="Sala de juegos"></div>
+      <div class="masonry-item" style="background-color: #C9BEB5;" role="img" aria-label="Espacio kids"></div>
+      <div class="masonry-item" style="background-image: url('img/amenity_03.webp');" role="img" aria-label="Área de descanso exterior"></div>
+    </div>
+    <div class="masonry gallery-panel" id="gallery-comun" role="tabpanel">
+      <div class="masonry-item" style="background-color: #C0B6AD;" role="img" aria-label="Lobby principal"></div>
+      <div class="masonry-item" style="background-color: #B8ADA4;" role="img" aria-label="Salón de usos múltiples"></div>
+      <div class="masonry-item" style="background-color: #CAC0B8;" role="img" aria-label="Área de trabajo compartida"></div>
+      <div class="masonry-item" style="background-color: #BDB3AA;" role="img" aria-label="Pasillos interiores"></div>
+      <div class="masonry-item" style="background-color: #C8BEB6;" role="img" aria-label="Área social"></div>
+    </div>
+    <div class="masonry gallery-panel" id="gallery-exterior" role="tabpanel">
+      <div class="masonry-item" style="background-color: #BFB5AC;" role="img" aria-label="Fachada exterior"></div>
+      <div class="masonry-item" style="background-color: #C7BDB4;" role="img" aria-label="Jardines"></div>
+      <div class="masonry-item" style="background-color: #B9AFA6;" role="img" aria-label="Acceso peatonal"></div>
+      <div class="masonry-item" style="background-color: #C4BAB1;" role="img" aria-label="Terraza exterior"></div>
+      <div class="masonry-item" style="background-color: #BEB4AB;" role="img" aria-label="Vista desde terraza"></div>
+    </div>
+
+  </section>
+
+
+  <!-- ── FORMULARIO [ACCIÓN] ──────────────────────────────── -->
+  <section class="form-section" id="contacto" aria-labelledby="form-heading">
+
+    <div class="reveal">
+      <p class="section-label">Primer paso</p>
+      <h2 class="form-headline" id="form-heading">
+        Cotiza sin compromiso.<br>Te respondemos hoy.
+      </h2>
+      <p class="form-subtext">
+        Déjanos tus datos y te enviamos precios, plantas disponibles y
+        condiciones de financiamiento del proyecto que te interesa.
+      </p>
+
+      <div class="form-guarantees">
+        <div class="form-guarantee">
+          <div class="form-guarantee-icon" aria-hidden="true">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          </div>
+          <div class="form-guarantee-text">
+            <strong>Respuesta en menos de 2 horas</strong>
+            En horario hábil, de lunes a sábado
+          </div>
+        </div>
+        <div class="form-guarantee">
+          <div class="form-guarantee-icon" aria-hidden="true">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 5a2 2 0 012-2h3.519a1 1 0 01.979.796l.61 3.048a1 1 0 01-.62 1.094L7.2 9.01a11.008 11.008 0 005.79 5.79l2.072-1.288a1 1 0 011.094-.62l3.048.61A1 1 0 0121 14.481V17a2 2 0 01-2 2h-1C9.716 19 3 12.284 3 5z"/></svg>
+          </div>
+          <div class="form-guarantee-text">
+            <strong>Sala de ventas Santiago</strong>
+            Av. Apoquindo 5950, Las Condes
+          </div>
+        </div>
+        <div class="form-guarantee">
+          <div class="form-guarantee-icon" aria-hidden="true">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 5a2 2 0 012-2h3.519a1 1 0 01.979.796l.61 3.048a1 1 0 01-.62 1.094L7.2 9.01a11.008 11.008 0 005.79 5.79l2.072-1.288a1 1 0 011.094-.62l3.048.61A1 1 0 0121 14.481V17a2 2 0 01-2 2h-1C9.716 19 3 12.284 3 5z"/></svg>
+          </div>
+          <div class="form-guarantee-text">
+            <strong>Sala de ventas Temuco</strong>
+            Av. Alemania 0635, Temuco
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <form class="reveal reveal-d1" id="contact-form" novalidate aria-labelledby="form-heading">
+      <div class="form-row">
+        <div class="form-group">
+          <label for="nombre">Nombre</label>
+          <input type="text" id="nombre" name="nombre" placeholder="Tu nombre" required autocomplete="given-name">
+        </div>
+        <div class="form-group">
+          <label for="telefono">Teléfono</label>
+          <input type="tel" id="telefono" name="telefono" placeholder="+56 9 0000 0000" required autocomplete="tel">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="email">Correo electrónico</label>
+        <input type="email" id="email" name="email" placeholder="tu@correo.cl" required autocomplete="email">
+      </div>
+
+      <div class="form-group">
+        <label for="ciudad">Ciudad de interés</label>
+        <select id="ciudad" name="ciudad" required>
+          <option value="" disabled selected>Selecciona una ciudad</option>
+          <option value="santiago">Santiago</option>
+          <option value="temuco">Temuco</option>
+          <option value="ambas">Ambas ciudades</option>
+        </select>
+      </div>
+
+      <button type="submit" class="form-submit">Quiero mi cotización</button>
+      <p class="form-response-time">Respondemos en horario hábil, en menos de 2 horas</p>
+      <p class="form-legal">
+        Al enviar este formulario aceptas nuestra
+        <a href="#">Política de privacidad</a>.
+        No compartimos tus datos con terceros.
+      </p>
+    </form>
+
+  </section>
+
+
+  <!-- ── FOOTER ──────────────────────────────────────────── -->
+  <footer>
+    <div class="footer-top">
+      <span class="footer-logo">VÉRTICE</span>
+      <a href="#contacto" class="footer-brasil">
+        Ver todos los proyectos
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
+      </a>
+    </div>
+    <div class="footer-bottom">
+      <ul class="footer-links">
+        <li><a href="#catalogo">Proyectos</a></li>
+        <li><a href="#contacto">Contacto</a></li>
+        <li><a href="#">Salas de ventas</a></li>
+        <li><a href="#">Portal del cliente</a></li>
+        <li><a href="#">Privacidad</a></li>
+      </ul>
+      <span class="footer-copy">© 2025 Vértice Chile SpA</span>
+    </div>
+  </footer>
+
+
+  <!-- ── JS ──────────────────────────────────────────────── -->
+  <script>
+    /* === Progressive enhancement — activa animaciones ====== */
+    document.documentElement.classList.add('js-ready');
+
+    /* === Header scroll ===================================== */
+    const header = document.getElementById('site-header');
+    window.addEventListener('scroll', () => {
+      header.classList.toggle('scrolled', window.scrollY > 60);
+    }, { passive: true });
+
+    /* === Hero city tabs ==================================== */
+    const heroTabs     = document.querySelectorAll('.hero-tab');
+    const bgSantiago   = document.getElementById('bg-santiago');
+    const bgTemuco     = document.getElementById('bg-temuco');
+    const heroCity     = document.getElementById('hero-city');
+    const heroEyebrow  = document.getElementById('hero-eyebrow');
+    const filterBtns   = document.querySelectorAll('.filter-btn');
+    const catalogLabel = document.getElementById('catalog-city-label');
+    const gridSantiago = document.getElementById('grid-santiago');
+    const gridTemuco   = document.getElementById('grid-temuco');
+
+    const cityData = {
+      santiago: { city: 'SANTIAGO', eyebrow: 'Departamentos en' },
+      temuco:   { city: 'TEMUCO',   eyebrow: 'Departamentos en' },
+    };
+
+    function switchCity(city) {
+      bgSantiago.style.opacity = city === 'santiago' ? '1' : '0';
+      bgTemuco.style.opacity   = city === 'temuco'   ? '1' : '0';
+      const d = cityData[city];
+      heroCity.textContent    = d.city;
+      heroEyebrow.textContent = d.eyebrow;
+      heroTabs.forEach(t => {
+        const a = t.dataset.city === city;
+        t.classList.toggle('active', a);
+        t.setAttribute('aria-selected', a);
+      });
+      filterBtns.forEach(b => b.classList.toggle('active', b.dataset.filter === city));
+      catalogLabel.textContent = city === 'santiago' ? 'Santiago' : 'Temuco';
+      gridSantiago.style.display = city === 'santiago' ? '' : 'none';
+      gridTemuco.style.display   = city === 'temuco'   ? '' : 'none';
+      document.body.classList.toggle('city-temuco', city === 'temuco');
+      document.querySelectorAll('.reveal.visible').forEach(el => {
+        el.classList.remove('visible');
+        setTimeout(() => el.classList.add('visible'), 50);
+      });
+    }
+
+    heroTabs.forEach(t => t.addEventListener('click', () => switchCity(t.dataset.city)));
+    filterBtns.forEach(b => {
+      b.addEventListener('click', () => {
+        switchCity(b.dataset.filter);
+        document.getElementById('catalogo').scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+    });
+
+    /* === Gallery tabs ====================================== */
+    const galleryTabs   = document.querySelectorAll('.gallery-tab');
+    const galleryPanels = document.querySelectorAll('.gallery-panel');
+    galleryTabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        galleryTabs.forEach(t => t.classList.remove('active'));
+        galleryPanels.forEach(p => p.classList.remove('active'));
+        tab.classList.add('active');
+        const panel = document.getElementById('gallery-' + tab.dataset.gtab);
+        if (panel) panel.classList.add('active');
+      });
+    });
+
+    /* === Scroll reveal ===================================== */
+    const revealObs = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          revealObs.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
+
+    /* Fallback: asegura visibilidad tras carga completa
+       (cubre herramientas de screenshot y conexiones lentas) */
+    window.addEventListener('load', () => {
+      setTimeout(() => {
+        document.querySelectorAll('.reveal:not(.visible), .trust-bar-item:not(.visible)')
+          .forEach(el => el.classList.add('visible'));
+      }, 800);
+    });
+
+    /* Trust bar items use same observer */
+    const trustObs = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          trustObs.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.2 });
+    document.querySelectorAll('.trust-bar-item').forEach(el => trustObs.observe(el));
+
+    /* === Counter animation ================================= */
+    function animateCounter(el, target, duration = 1400) {
+      let start = null;
+      const step = ts => {
+        if (!start) start = ts;
+        const p = Math.min((ts - start) / duration, 1);
+        const e = 1 - Math.pow(1 - p, 3);
+        el.textContent = Math.floor(e * target);
+        if (p < 1) requestAnimationFrame(step);
+        else el.textContent = target;
+      };
+      requestAnimationFrame(step);
+    }
+
+    const counterObs = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          animateCounter(e.target, parseInt(e.target.dataset.target, 10));
+          counterObs.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.5 });
+    document.querySelectorAll('.count-num').forEach(el => counterObs.observe(el));
+
+    /* === Form submit ======================================= */
+    document.getElementById('contact-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const btn = this.querySelector('.form-submit');
+      btn.textContent = 'Enviado — te contactamos pronto';
+      btn.style.background = '#5a7a5a';
+      btn.disabled = true;
+    });
+  </script>
+
+</body>
+</html>

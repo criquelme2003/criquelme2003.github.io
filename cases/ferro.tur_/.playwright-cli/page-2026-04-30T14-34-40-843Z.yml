@@ -1,0 +1,199 @@
+- generic [active] [ref=e1]:
+  - navigation "Navegación" [ref=e2]:
+    - link "Ferro·Tur" [ref=e3] [cursor=pointer]:
+      - /url: "#"
+    - generic [ref=e4]:
+      - link "Carta" [ref=e5] [cursor=pointer]:
+        - /url: "#menu"
+      - link "Visítanos" [ref=e6] [cursor=pointer]:
+        - /url: "#llegada"
+      - link "Reservar por WhatsApp" [ref=e7] [cursor=pointer]:
+        - /url: https://wa.me/56912345678
+        - img [ref=e8]
+        - text: Reservar
+  - region "FERRO ·TUR" [ref=e10]:
+    - 'img "Interior del vagón alemán de 1929: techo con lámparas de época, paneles de madera y asientos de cuero a lo largo del coche" [ref=e12]'
+    - generic [ref=e13]:
+      - paragraph [ref=e14]: Cafetería · Museo Ferroviario · Carahue · Desde 2015
+      - heading "FERRO ·TUR" [level=1] [ref=e15]:
+        - text: FERRO
+        - generic [ref=e16]: ·TUR
+      - paragraph [ref=e17]: El único café de La Araucanía dentro de un vagón alemán de 1929. Afuera puede llover todo lo que quiera.
+    - generic [ref=e19]: Bajar
+  - region "Un julio frío tiene mejor sabor adentro del vagón. Café, tortas y onces. Carahue, desde 2015." [ref=e21]:
+    - generic [ref=e22]:
+      - paragraph [ref=e23]: Mayo · Junio · Julio · Agosto
+      - paragraph [ref=e24]:
+        - generic [ref=e25]: Un julio frío
+        - generic [ref=e26]: tiene mejor sabor
+        - generic [ref=e27]: adentro del vagón.
+        - generic [ref=e28]: Café, tortas y onces. Carahue, desde 2015.
+  - region "Galería del espacio" [ref=e29]:
+    - generic [ref=e30]:
+      - generic [ref=e31]:
+        - img "Interior vacío del vagón con mesas blancas y asientos de cuero rojo, luz natural por las ventanas" [ref=e32]
+        - paragraph [ref=e33]: El vagón en invierno. Madera original, lámparas de época, calefacción.
+      - generic [ref=e34]:
+        - img "Familias almorzando dentro del vagón ferroviario restaurado" [ref=e35]
+        - paragraph [ref=e36]: Capacidad para grupos y familias. Un espacio que invita a quedarse.
+      - generic [ref=e37]:
+        - img "Integrante del equipo de Ferro-Tur dentro del vagón" [ref=e38]
+        - paragraph [ref=e39]: El equipo está acá desde que abrimos, en 2015.
+  - region "En invierno el vagón tiene otro carácter." [ref=e40]:
+    - generic [ref=e42]: JUL
+    - generic [ref=e43]:
+      - paragraph [ref=e44]: Invierno · La Araucanía
+      - heading "En invierno el vagón tiene otro carácter." [level=2] [ref=e45]:
+        - text: En invierno el vagón
+        - emphasis [ref=e46]: tiene otro carácter.
+      - paragraph [ref=e47]:
+        - text: La luz de las lámparas se siente distinta cuando afuera está nublado. El café huele más. La madera habla más. El vagón de 1929 lleva diez años siendo exactamente así en cada invierno de La Araucanía.
+        - strong [ref=e48]: Un espacio para estar con tiempo.
+        - text: Sin el ruido del verano, sin apuro. Para los que viven en la región o pasan por la ruta, es el tipo de tarde que no se olvida fácil.
+  - region "Menú del Vagón" [ref=e49]:
+    - generic [ref=e50]:
+      - generic [ref=e51]:
+        - paragraph [ref=e52]: Ferro-Tur Cafetería · Carahue
+        - heading "Menú del Vagón" [level=2] [ref=e53]
+      - generic [ref=e55]:
+        - generic [ref=e56]:
+          - generic [ref=e57]:
+            - paragraph [ref=e58]: Café y Bebidas Calientes
+            - list [ref=e59]:
+              - listitem [ref=e60]:
+                - generic [ref=e61]:
+                  - text: Café americano
+                  - generic [ref=e62]: Solo o cortado
+              - listitem [ref=e63]:
+                - generic [ref=e64]:
+                  - text: Cappuccino
+                  - generic [ref=e65]: Con leche vaporizada
+              - listitem [ref=e66]:
+                - generic [ref=e67]:
+                  - text: Latte
+                  - generic [ref=e68]: Doble shot, leche cremosa
+              - listitem [ref=e69]:
+                - generic [ref=e70]:
+                  - text: Chocolate caliente
+                  - generic [ref=e71]: Para los días fríos
+              - listitem [ref=e72]:
+                - generic [ref=e73]: Té e infusiones
+          - generic [ref=e74]:
+            - paragraph [ref=e75]: Para Picar
+            - list [ref=e76]:
+              - listitem [ref=e77]:
+                - generic [ref=e78]:
+                  - text: Sandwich caliente
+                  - generic [ref=e79]: Jamón, queso y tomate
+              - listitem [ref=e80]:
+                - generic [ref=e81]:
+                  - text: Tostadas con palta
+                  - generic [ref=e82]: Con limón y sal marina
+              - listitem [ref=e83]:
+                - generic [ref=e84]:
+                  - text: Empanada del día
+                  - generic [ref=e85]: Consultar disponibilidad
+              - listitem [ref=e86]:
+                - generic [ref=e87]: Sopaipillas con pebre
+        - generic [ref=e88]:
+          - generic [ref=e89]:
+            - paragraph [ref=e90]: Tortas y Dulces
+            - list [ref=e91]:
+              - listitem [ref=e92]:
+                - generic [ref=e93]:
+                  - text: Torta de la casa
+                  - generic [ref=e94]: Cambia según el día
+              - listitem [ref=e95]:
+                - generic [ref=e96]:
+                  - text: Kuchen de manzana
+                  - generic [ref=e97]: Receta tradicional del sur
+              - listitem [ref=e98]:
+                - generic [ref=e99]:
+                  - text: Kuchen de murta
+                  - generic [ref=e100]: Con fruta regional de temporada
+              - listitem [ref=e101]:
+                - generic [ref=e102]:
+                  - text: Pie de limón
+                  - generic [ref=e103]: Casero, sin relleno de pote
+              - listitem [ref=e104]:
+                - generic [ref=e105]: Brownie
+          - generic [ref=e106]:
+            - paragraph [ref=e107]: Onces
+            - list [ref=e108]:
+              - listitem [ref=e109]:
+                - generic [ref=e110]:
+                  - text: Once completa
+                  - generic [ref=e111]: Café · pan amasado · mantequilla · mermelada · torta
+              - listitem [ref=e112]:
+                - generic [ref=e113]:
+                  - text: Once sencilla
+                  - generic [ref=e114]: Café o té · pan · mantequilla
+              - listitem [ref=e115]:
+                - generic [ref=e116]:
+                  - text: Once de invierno
+                  - generic [ref=e117]: Chocolate · tostada · kuchen del día
+      - paragraph [ref=e118]: La carta puede variar según la disponibilidad. Para grupos, escribinos antes.
+  - region "Testimonio" [ref=e119]:
+    - generic [ref=e120]: "\""
+    - blockquote [ref=e121]:
+      - paragraph [ref=e122]:
+        - text: "\"El vagón tiene algo que"
+        - emphasis [ref=e123]: no se explica bien
+        - text: hasta que estás adentro. Lo de las lámparas y los tapizados rojos no es decorado reciente. Eso lleva décadas así."
+      - generic [ref=e124]: Google Reviews · Carahue · ★★★★★
+  - region "No es una cafetería en un vagón. Es un vagón que sirve café." [ref=e125]:
+    - generic [ref=e126]:
+      - img "Vista exterior del vagón ferroviario rojo y amarillo en el Museo de Trenes de Carahue" [ref=e127]
+      - text: "1929"
+    - generic [ref=e128]:
+      - paragraph [ref=e129]: Un coche alemán construido en 1929
+      - heading "No es una cafetería en un vagón. Es un vagón que sirve café." [level=2] [ref=e130]:
+        - text: No es una cafetería
+        - text: en un vagón.
+        - text: Es un vagón
+        - text: que sirve café.
+      - generic [ref=e131]:
+        - paragraph [ref=e132]: "El coche fue fabricado en Alemania en 1929 y llegó a Chile en los años de mayor actividad ferroviaria en La Araucanía. Hoy forma parte del Museo Ferroviario de Carahue, restaurado como estaba: madera de alerce, lámparas originales, tapizados de cuero rojo."
+        - paragraph [ref=e133]:
+          - strong [ref=e134]: No hay otro lugar así en la región.
+          - text: Y en invierno, cuando hay menos gente, el espacio se siente completamente tuyo.
+  - region "La mesa te espera." [ref=e135]:
+    - paragraph [ref=e136]: Cómo llegar
+    - heading "La mesa te espera." [level=2] [ref=e137]:
+      - text: La mesa
+      - emphasis [ref=e138]: te espera.
+    - generic [ref=e139]:
+      - generic [ref=e140]:
+        - paragraph [ref=e141]: Horario invierno
+        - generic [ref=e142]:
+          - strong [ref=e143]: Lun — Vie
+          - text: 10:00 – 18:00
+          - strong [ref=e144]: Sáb
+          - text: 10:00 – 19:00
+          - strong [ref=e145]: Dom
+          - text: 10:00 – 18:30
+          - strong [ref=e146]: Festivos
+          - text: 11:00 – 17:00
+      - generic [ref=e147]:
+        - paragraph [ref=e148]: Dirección
+        - paragraph [ref=e149]:
+          - text: Calle Prat s/n
+          - text: Museo Ferroviario de Carahue
+          - text: La Araucanía, Chile
+      - generic [ref=e150]:
+        - paragraph [ref=e151]: Contacto
+        - paragraph [ref=e152]:
+          - text: +56 9 1234 5678
+          - strong [ref=e153]: WhatsApp disponible
+          - text: "@ferro.tur_"
+    - link "Reservar mesa por WhatsApp" [ref=e154] [cursor=pointer]:
+      - /url: https://wa.me/56912345678
+      - img [ref=e155]
+      - text: Reservar por WhatsApp
+    - paragraph [ref=e157]: En invierno recomendamos confirmar la visita si van en grupo.
+  - contentinfo [ref=e158]:
+    - generic [ref=e159]: Ferro·Tur
+    - generic [ref=e160]: Cafetería · Museo Ferroviario de Carahue · Atendiendo desde 2015
+    - link "Instagram de Ferro-Tur" [ref=e161] [cursor=pointer]:
+      - /url: https://instagram.com/ferro.tur_
+      - text: "@ferro.tur_"

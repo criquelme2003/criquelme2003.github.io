@@ -1,0 +1,1135 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Reserva tu cita — Barbería</title>
+  <meta name="description" content="Reserva tu cita en segundos. Elige servicio, fecha y hora. Sin llamadas, sin esperas.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* ============================================================
+       TOKENS — BARBERÍA DARK GOLD
+    ============================================================ */
+    :root {
+      --primary:       #C8A96E;
+      --primary-d:     #A88C58;
+      --primary-light: rgba(200,169,110,0.08);
+      --primary-ring:  rgba(200,169,110,0.2);
+      --primary-glow:  rgba(200,169,110,0.15);
+
+      --wa:            #25D366;
+      --wa-d:          #1EB356;
+      --danger:        #E05252;
+      --success:       #3DDBA5;
+      --success-light: rgba(61,219,165,0.1);
+
+      --bg:       #0C0A08;
+      --bg-2:     #141210;
+      --surface:  #1C1916;
+      --surface-2:#242018;
+      --border:   rgba(255,255,255,0.07);
+      --border-h: rgba(200,169,110,0.25);
+      --border-g: rgba(200,169,110,0.12);
+
+      --text:     #F2EDE6;
+      --sub:      #9A9088;
+      --muted:    #5C5550;
+      --disabled: #3A3530;
+
+      --f-display: 'Playfair Display', serif;
+      --f:         'Poppins', sans-serif;
+
+      --r-sm:  10px;
+      --r-md:  16px;
+      --r-lg:  20px;
+      --sh:    0 2px 8px rgba(0,0,0,0.4), 0 16px 48px rgba(0,0,0,0.4);
+      --sh-g:  0 0 40px rgba(200,169,110,0.07);
+    }
+
+    /* ============================================================
+       RESET / BASE
+    ============================================================ */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--f);
+      background: var(--bg);
+      color: var(--text);
+      font-size: 16px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      min-height: 100dvh;
+    }
+    img { display: block; max-width: 100%; }
+    button { cursor: pointer; font-family: var(--f); border: none; background: none; }
+    input, select { font-family: var(--f); }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+
+    /* ============================================================
+       HERO
+    ============================================================ */
+    .hero {
+      background: var(--bg);
+      background-image:
+        repeating-linear-gradient(
+          -55deg,
+          transparent 0px, transparent 28px,
+          rgba(255,255,255,0.018) 28px, rgba(255,255,255,0.018) 30px
+        );
+      padding: 52px 24px 80px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      border-bottom: 1px solid var(--border);
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 50%; transform: translateX(-50%);
+      width: 300px; height: 1px;
+      background: linear-gradient(90deg, transparent, var(--primary), transparent);
+    }
+    .hero::after {
+      content: '';
+      position: absolute;
+      bottom: -1px; left: 0; right: 0;
+      height: 36px;
+      background: var(--bg);
+      border-radius: 36px 36px 0 0;
+    }
+
+    .hero__eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(200,169,110,0.06);
+      border: 1px solid var(--border-g);
+      border-radius: 100px;
+      padding: 5px 16px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--primary);
+      margin-bottom: 20px;
+    }
+    .hero__dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--success);
+      animation: dotBlink 2.2s ease-in-out infinite;
+    }
+    @keyframes dotBlink {
+      0%,100% { opacity: 1; } 50% { opacity: 0.3; }
+    }
+
+    .hero__brand {
+      font-family: var(--f-display);
+      font-weight: 800;
+      font-size: clamp(36px, 9vw, 58px);
+      color: var(--text);
+      letter-spacing: -0.01em;
+      line-height: 1;
+      margin-bottom: 6px;
+    }
+    .hero__brand em {
+      font-style: normal;
+      color: var(--primary);
+    }
+    .hero__tagline {
+      font-size: clamp(13px, 3vw, 15px);
+      color: var(--sub);
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      font-weight: 500;
+      margin-bottom: 28px;
+    }
+    .hero__cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      background: var(--primary);
+      color: var(--bg);
+      font-weight: 700;
+      font-size: 14px;
+      letter-spacing: 0.04em;
+      padding: 14px 30px;
+      border-radius: var(--r-sm);
+      transition: background 0.18s, transform 0.15s, box-shadow 0.18s;
+      box-shadow: 0 4px 20px rgba(200,169,110,0.28);
+      text-transform: uppercase;
+      text-decoration: none;
+    }
+    .hero__cta:hover {
+      background: var(--primary-d);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 28px rgba(200,169,110,0.35);
+    }
+
+    /* ============================================================
+       BOOKING WRAP
+    ============================================================ */
+    .booking-wrap {
+      max-width: 540px;
+      margin: -28px auto 36px;
+      padding: 0 16px;
+      position: relative;
+      z-index: 10;
+    }
+    .booking-card {
+      background: var(--surface);
+      border-radius: var(--r-lg);
+      border: 1px solid var(--border);
+      box-shadow: var(--sh), var(--sh-g);
+      overflow: hidden;
+    }
+
+    /* ============================================================
+       PROGRESS BAR
+    ============================================================ */
+    .progress-bar {
+      height: 3px;
+      background: var(--border);
+    }
+    .progress-bar__fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--primary-d), var(--primary));
+      border-radius: 3px;
+      transition: width 0.4s cubic-bezier(0.4,0,0.2,1);
+      width: 25%;
+    }
+
+    /* ============================================================
+       STEP TABS
+    ============================================================ */
+    .step-tabs {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      border-bottom: 1px solid var(--border);
+      background: var(--bg-2);
+    }
+    .step-tab {
+      padding: 13px 6px;
+      text-align: center;
+      font-size: 10px;
+      font-weight: 600;
+      color: var(--muted);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      border-bottom: 2px solid transparent;
+      transition: all 0.2s;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 5px;
+    }
+    .step-tab .tab-num {
+      width: 20px; height: 20px;
+      border-radius: 50%;
+      background: var(--surface-2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 10px;
+      font-weight: 700;
+      color: var(--muted);
+      transition: all 0.2s;
+      border: 1px solid var(--border);
+    }
+    .step-tab.active {
+      color: var(--primary);
+      border-bottom-color: var(--primary);
+    }
+    .step-tab.active .tab-num {
+      background: var(--primary);
+      color: var(--bg);
+      border-color: var(--primary);
+    }
+    .step-tab.done { color: var(--success); }
+    .step-tab.done .tab-num {
+      background: rgba(61,219,165,0.12);
+      color: var(--success);
+      border-color: rgba(61,219,165,0.3);
+    }
+
+    /* ============================================================
+       SECTIONS
+    ============================================================ */
+    .booking-section {
+      padding: 24px;
+      border-bottom: 1px solid var(--border);
+    }
+    .booking-section:last-of-type { border-bottom: none; }
+    .booking-section__label {
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: var(--primary);
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .booking-section__label::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+
+    /* ============================================================
+       STEP 1 — SERVICES
+    ============================================================ */
+    .service-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+    .service-card {
+      border: 1px solid var(--border);
+      border-radius: var(--r-md);
+      padding: 14px 12px;
+      cursor: pointer;
+      transition: all 0.18s ease;
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      background: var(--surface-2);
+      -webkit-tap-highlight-color: transparent;
+      text-align: left;
+      width: 100%;
+    }
+    .service-card:hover {
+      border-color: var(--border-g);
+      background: rgba(200,169,110,0.05);
+    }
+    .service-card.selected {
+      border-color: var(--primary);
+      background: var(--primary-light);
+      box-shadow: 0 0 0 3px var(--primary-ring);
+    }
+    .service-card__ico {
+      width: 38px; height: 38px;
+      border-radius: 9px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      color: var(--sub);
+      transition: all 0.18s;
+    }
+    .service-card.selected .service-card__ico {
+      background: var(--primary);
+      border-color: var(--primary);
+      color: var(--bg);
+    }
+    .service-card__name {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text);
+      line-height: 1.3;
+    }
+    .service-card.selected .service-card__name { color: var(--primary); }
+    .service-card__price {
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 2px;
+      font-weight: 500;
+    }
+    .service-card.selected .service-card__price { color: var(--primary-d); }
+
+    /* ============================================================
+       STEP 2 — CALENDAR
+    ============================================================ */
+    .cal-nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 14px;
+    }
+    .cal-nav__title {
+      font-family: var(--f-display);
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--text);
+      text-transform: capitalize;
+      letter-spacing: 0.01em;
+    }
+    .cal-nav__btn {
+      width: 32px; height: 32px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid var(--border);
+      color: var(--sub);
+      transition: all 0.15s;
+      cursor: pointer;
+      background: var(--surface-2);
+    }
+    .cal-nav__btn:hover {
+      background: var(--primary-light);
+      border-color: var(--border-g);
+      color: var(--primary);
+    }
+    .cal-weekdays {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      margin-bottom: 6px;
+    }
+    .cal-weekday {
+      text-align: center;
+      font-size: 10px;
+      font-weight: 600;
+      color: var(--muted);
+      padding: 4px 0;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+    .cal-grid {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 3px;
+    }
+    .cal-day {
+      aspect-ratio: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      font-size: 13px;
+      font-weight: 500;
+      transition: all 0.15s;
+      color: var(--text);
+    }
+    .cal-day--available { cursor: pointer; }
+    .cal-day--available:hover {
+      background: var(--primary-light);
+      color: var(--primary);
+    }
+    .cal-day--past, .cal-day--sunday { color: var(--muted); pointer-events: none; opacity: 0.35; }
+    .cal-day--today {
+      border: 1.5px solid var(--primary);
+      color: var(--primary);
+      font-weight: 700;
+    }
+    .cal-day--selected {
+      background: var(--primary) !important;
+      color: var(--bg) !important;
+      font-weight: 700;
+      box-shadow: 0 2px 12px rgba(200,169,110,0.4);
+    }
+    .cal-day--empty { pointer-events: none; }
+
+    /* ============================================================
+       STEP 3 — TIME SLOTS
+    ============================================================ */
+    .time-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .time-slot {
+      flex: 1 1 calc(20% - 7px);
+      min-width: 60px;
+      padding: 12px 6px;
+      border: 1px solid var(--border);
+      border-radius: var(--r-sm);
+      text-align: center;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--sub);
+      cursor: pointer;
+      transition: all 0.15s;
+      background: var(--surface-2);
+      -webkit-tap-highlight-color: transparent;
+      min-height: 44px;
+    }
+    .time-slot:hover {
+      border-color: var(--border-g);
+      color: var(--primary);
+      background: var(--primary-light);
+    }
+    .time-slot.selected {
+      border-color: var(--primary);
+      background: var(--primary);
+      color: var(--bg);
+      font-weight: 700;
+      box-shadow: 0 2px 10px rgba(200,169,110,0.3);
+    }
+    .time-slot.taken {
+      color: var(--muted);
+      opacity: 0.35;
+      pointer-events: none;
+      text-decoration: line-through;
+    }
+
+    /* ============================================================
+       STEP 4 — CONTACT
+    ============================================================ */
+    .form-row { display: flex; flex-direction: column; gap: 12px; }
+    .field { display: flex; flex-direction: column; gap: 6px; }
+    .field__label {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--sub);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+    .field__input {
+      width: 100%;
+      padding: 13px 16px;
+      border: 1px solid var(--border);
+      border-radius: var(--r-sm);
+      font-size: 15px;
+      font-weight: 500;
+      color: var(--text);
+      background: var(--surface-2);
+      outline: none;
+      transition: border-color 0.18s, box-shadow 0.18s, background 0.18s;
+      -webkit-appearance: none;
+      appearance: none;
+    }
+    .field__input::placeholder { color: var(--muted); font-weight: 400; }
+    .field__input:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px var(--primary-ring);
+      background: var(--primary-light);
+    }
+    .field__input.error { border-color: var(--danger); box-shadow: 0 0 0 3px rgba(224,82,82,0.15); }
+    .field__error { font-size: 12px; color: var(--danger); display: none; }
+    .field__error.show { display: block; }
+
+    /* ============================================================
+       SUMMARY PANEL
+    ============================================================ */
+    .summary {
+      margin: 0 24px 0;
+      background: var(--bg-2);
+      border: 1px solid var(--border-g);
+      border-radius: var(--r-md);
+      padding: 16px;
+      display: none;
+      margin-bottom: 20px;
+    }
+    .summary.show { display: block; }
+    .summary__title {
+      font-family: var(--f-display);
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 12px;
+      letter-spacing: 0.02em;
+    }
+    .summary__rows { display: flex; flex-direction: column; gap: 9px; }
+    .summary__row {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      font-size: 14px;
+    }
+    .summary__ico {
+      width: 28px; height: 28px;
+      border-radius: 7px;
+      background: var(--primary-light);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      color: var(--primary);
+      border: 1px solid var(--border-g);
+    }
+    .summary__key { color: var(--muted); flex-shrink: 0; min-width: 64px; font-size: 13px; }
+    .summary__val { color: var(--text); font-weight: 600; font-size: 13px; }
+
+    /* ============================================================
+       FOOTER / CONFIRM
+    ============================================================ */
+    .booking-footer {
+      padding: 20px 24px 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .confirm-btn {
+      width: 100%;
+      background: var(--wa);
+      color: #fff;
+      border: none;
+      border-radius: var(--r-md);
+      font-family: var(--f);
+      font-size: 15px;
+      font-weight: 700;
+      padding: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      transition: background 0.18s, transform 0.12s, box-shadow 0.18s;
+      min-height: 56px;
+      box-shadow: 0 4px 20px rgba(37,211,102,0.25);
+      letter-spacing: 0.02em;
+    }
+    .confirm-btn:hover {
+      background: var(--wa-d);
+      transform: translateY(-1px);
+      box-shadow: 0 6px 24px rgba(37,211,102,0.35);
+    }
+    .confirm-btn:active { transform: translateY(0); }
+    .confirm-btn:disabled {
+      background: var(--surface-2);
+      color: var(--muted);
+      box-shadow: none;
+      cursor: not-allowed;
+      transform: none;
+      border: 1px solid var(--border);
+    }
+    .confirm-hint {
+      text-align: center;
+      font-size: 11px;
+      color: var(--muted);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+      letter-spacing: 0.02em;
+    }
+    .confirm-hint svg { color: var(--primary); }
+
+    /* ============================================================
+       SUCCESS SCREEN
+    ============================================================ */
+    .success-screen {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding: 52px 24px;
+    }
+    .success-screen.show { display: flex; }
+    .success-ico {
+      width: 72px; height: 72px;
+      border-radius: 50%;
+      background: var(--success-light);
+      border: 1px solid rgba(61,219,165,0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 22px;
+      color: var(--success);
+      animation: popIn 0.4s cubic-bezier(0.34,1.56,0.64,1) both;
+    }
+    @keyframes popIn {
+      from { transform: scale(0); opacity: 0; }
+      to   { transform: scale(1); opacity: 1; }
+    }
+    .success-brand {
+      font-family: var(--f-display);
+      font-size: 13px;
+      color: var(--primary);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+    .success-title {
+      font-family: var(--f-display);
+      font-size: 26px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 10px;
+      letter-spacing: -0.01em;
+    }
+    .success-sub {
+      font-size: 14px;
+      color: var(--sub);
+      margin-bottom: 32px;
+      line-height: 1.65;
+    }
+    .success-new {
+      background: var(--surface-2);
+      color: var(--sub);
+      border: 1px solid var(--border);
+      border-radius: var(--r-md);
+      font-family: var(--f);
+      font-size: 14px;
+      font-weight: 600;
+      padding: 12px 28px;
+      cursor: pointer;
+      transition: all 0.15s;
+      min-height: 44px;
+    }
+    .success-new:hover { border-color: var(--border-g); color: var(--primary); }
+
+    /* ============================================================
+       WA FLOATING
+    ============================================================ */
+    .wa-float {
+      position: fixed;
+      bottom: 24px;
+      right: 20px;
+      z-index: 90;
+      width: 54px; height: 54px;
+      background: var(--wa);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 20px rgba(37,211,102,0.38);
+      transition: transform 0.18s, box-shadow 0.18s;
+    }
+    .wa-float:hover { transform: scale(1.1); box-shadow: 0 6px 28px rgba(37,211,102,0.5); }
+    .wa-float__ring {
+      position: absolute;
+      inset: -8px;
+      border-radius: 50%;
+      border: 2px solid rgba(37,211,102,0.28);
+      animation: waPing 2.5s ease-in-out infinite;
+    }
+    @keyframes waPing {
+      0%,100% { transform: scale(1); opacity: 0.5; }
+      50%      { transform: scale(1.12); opacity: 0; }
+    }
+
+    /* ============================================================
+       FOOTER
+    ============================================================ */
+    .page-footer {
+      text-align: center;
+      padding: 20px 16px 48px;
+      font-size: 11px;
+      color: var(--muted);
+      letter-spacing: 0.06em;
+    }
+    .page-footer a { color: var(--primary); text-decoration: none; }
+
+    /* ============================================================
+       MOBILE
+    ============================================================ */
+    @media (max-width: 480px) {
+      .hero { padding: 40px 20px 64px; }
+      .booking-wrap { padding: 0 12px; }
+      .booking-section { padding: 20px 16px; }
+      .service-grid { gap: 8px; }
+      .step-tab { font-size: 9px; padding: 11px 4px; }
+      .time-slot { min-width: 52px; font-size: 13px; }
+      .booking-footer { padding: 16px 16px 20px; }
+      .summary { margin: 0 16px 16px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ======================== HERO ======================== -->
+  <header class="hero">
+    <div class="hero__eyebrow">
+      <span class="hero__dot" aria-hidden="true"></span>
+      Citas disponibles hoy
+    </div>
+    <h1 class="hero__brand">The <em>Barber</em><br>Shop</h1>
+    <p class="hero__tagline">Reserva tu cita · Sin llamadas · Sin esperas</p>
+    <a href="#reservar" class="hero__cta">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+      Reservar ahora
+    </a>
+  </header>
+
+  <!-- ======================== BOOKING CARD ======================== -->
+  <main class="booking-wrap" id="reservar">
+    <div class="booking-card" role="main" aria-label="Sistema de reservas">
+
+      <div class="progress-bar" role="progressbar" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" aria-label="Progreso de la reserva">
+        <div class="progress-bar__fill" id="progressFill"></div>
+      </div>
+
+      <div class="step-tabs" role="tablist" aria-label="Pasos de la reserva">
+        <div class="step-tab active" role="tab" aria-selected="true">
+          <div class="tab-num">1</div>
+          Servicio
+        </div>
+        <div class="step-tab" role="tab" aria-selected="false">
+          <div class="tab-num">2</div>
+          Fecha
+        </div>
+        <div class="step-tab" role="tab" aria-selected="false">
+          <div class="tab-num">3</div>
+          Hora
+        </div>
+        <div class="step-tab" role="tab" aria-selected="false">
+          <div class="tab-num">4</div>
+          Datos
+        </div>
+      </div>
+
+      <div id="bookingForm">
+
+        <!-- STEP 1: Servicio -->
+        <div class="booking-section">
+          <p class="booking-section__label">Elige tu servicio</p>
+          <div class="service-grid" role="group" aria-label="Seleccionar servicio">
+
+            <button class="service-card" data-service="Corte clásico" data-price="$8.000"
+                    role="radio" aria-checked="false" type="button">
+              <div class="service-card__ico" aria-hidden="true">
+                <!-- Scissors icon -->
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><line x1="20" y1="4" x2="8.12" y2="15.88"/><line x1="14.47" y1="14.48" x2="20" y2="20"/><line x1="8.12" y1="8.12" x2="12" y2="12"/></svg>
+              </div>
+              <div>
+                <div class="service-card__name">Corte clásico</div>
+                <div class="service-card__price">$8.000</div>
+              </div>
+            </button>
+
+            <button class="service-card" data-service="Fade / Degradado" data-price="$10.000"
+                    role="radio" aria-checked="false" type="button">
+              <div class="service-card__ico" aria-hidden="true">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 20V4M8 20V8M4 20v-6M16 20V8M20 20v-6"/></svg>
+              </div>
+              <div>
+                <div class="service-card__name">Fade / Degradado</div>
+                <div class="service-card__price">$10.000</div>
+              </div>
+            </button>
+
+            <button class="service-card" data-service="Arreglo de barba" data-price="$6.000"
+                    role="radio" aria-checked="false" type="button">
+              <div class="service-card__ico" aria-hidden="true">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M20 7s-2 2-5 2-5-2-5-2M12 9v3M7 16c0 2 2 4 5 4s5-2 5-4"/><circle cx="12" cy="6" r="3"/></svg>
+              </div>
+              <div>
+                <div class="service-card__name">Arreglo de barba</div>
+                <div class="service-card__price">$6.000</div>
+              </div>
+            </button>
+
+            <button class="service-card" data-service="Corte + Barba" data-price="$14.000"
+                    role="radio" aria-checked="false" type="button">
+              <div class="service-card__ico" aria-hidden="true">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              </div>
+              <div>
+                <div class="service-card__name">Corte + Barba</div>
+                <div class="service-card__price">$14.000</div>
+              </div>
+            </button>
+
+          </div>
+        </div>
+
+        <!-- STEP 2: Fecha -->
+        <div class="booking-section">
+          <p class="booking-section__label">Elige tu fecha</p>
+          <div class="cal-nav">
+            <button class="cal-nav__btn" id="calPrev" aria-label="Mes anterior">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m15 18-6-6 6-6"/></svg>
+            </button>
+            <span class="cal-nav__title" id="calTitle" aria-live="polite"></span>
+            <button class="cal-nav__btn" id="calNext" aria-label="Mes siguiente">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m9 18 6-6-6-6"/></svg>
+            </button>
+          </div>
+          <div class="cal-weekdays" role="row">
+            <span class="cal-weekday">Lu</span><span class="cal-weekday">Ma</span>
+            <span class="cal-weekday">Mi</span><span class="cal-weekday">Ju</span>
+            <span class="cal-weekday">Vi</span><span class="cal-weekday">Sa</span>
+            <span class="cal-weekday">Do</span>
+          </div>
+          <div class="cal-grid" id="calGrid" role="grid" aria-label="Calendario"></div>
+        </div>
+
+        <!-- STEP 3: Hora -->
+        <div class="booking-section">
+          <p class="booking-section__label">Elige tu horario</p>
+          <div class="time-grid" role="group" aria-label="Seleccionar hora">
+            <button class="time-slot" data-time="10:00" role="radio" aria-checked="false" type="button">10:00</button>
+            <button class="time-slot" data-time="11:00" role="radio" aria-checked="false" type="button">11:00</button>
+            <button class="time-slot taken" disabled aria-disabled="true">12:00</button>
+            <button class="time-slot" data-time="15:00" role="radio" aria-checked="false" type="button">15:00</button>
+            <button class="time-slot" data-time="16:00" role="radio" aria-checked="false" type="button">16:00</button>
+          </div>
+        </div>
+
+        <!-- STEP 4: Datos -->
+        <div class="booking-section">
+          <p class="booking-section__label">Tus datos</p>
+          <div class="form-row">
+            <div class="field">
+              <label class="field__label" for="inp-nombre">Nombre completo</label>
+              <input class="field__input" type="text" id="inp-nombre" name="nombre"
+                     placeholder="Ej. Carlos Ramírez" autocomplete="name" inputmode="text">
+              <span class="field__error" id="err-nombre">Ingresa tu nombre</span>
+            </div>
+            <div class="field">
+              <label class="field__label" for="inp-tel">Teléfono</label>
+              <input class="field__input" type="tel" id="inp-tel" name="telefono"
+                     placeholder="+56 9 1234 5678" autocomplete="tel" inputmode="tel">
+              <span class="field__error" id="err-tel">Ingresa un teléfono válido</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Summary -->
+        <div class="summary" id="bookingSummary" aria-label="Resumen de tu reserva" aria-live="polite">
+          <div class="summary__title">Resumen de tu cita</div>
+          <div class="summary__rows" id="summaryRows"></div>
+        </div>
+
+        <!-- Confirm -->
+        <div class="booking-footer">
+          <button class="confirm-btn" id="confirmBtn" type="button" disabled
+                  aria-label="Confirmar reserva por WhatsApp">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="white" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            Confirmar cita por WhatsApp
+          </button>
+          <p class="confirm-hint">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            Confirmamos tu cita en menos de 30 minutos
+          </p>
+        </div>
+
+      </div><!-- /#bookingForm -->
+
+      <!-- SUCCESS -->
+      <div class="success-screen" id="successScreen" role="status" aria-live="assertive">
+        <div class="success-ico" aria-hidden="true">
+          <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+        </div>
+        <p class="success-brand">The Barber Shop</p>
+        <h2 class="success-title">¡Cita confirmada!</h2>
+        <p class="success-sub">
+          Tu solicitud fue enviada por WhatsApp.<br>
+          Te confirmaremos tu hora a la brevedad.
+        </p>
+        <button class="success-new" id="newBookingBtn" type="button">
+          Reservar otra cita
+        </button>
+      </div>
+
+    </div><!-- /.booking-card -->
+  </main>
+
+  <footer class="page-footer" role="contentinfo">
+    Sistema por <a href="#" aria-label="Southpresence">Southpresence</a> · Reservas automáticas
+  </footer>
+
+  <!-- WA FLOAT -->
+  <!-- Reemplaza 56912345678 por tu número -->
+  <a href="https://wa.me/56912345678" target="_blank" rel="noopener noreferrer"
+     class="wa-float" aria-label="Contactar por WhatsApp">
+    <div class="wa-float__ring" aria-hidden="true"></div>
+    <svg width="26" height="26" viewBox="0 0 24 24" fill="white" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+  </a>
+
+  <script>
+    'use strict';
+
+    var state = {
+      service: null, date: null, time: null, nombre: '', telefono: '',
+      viewYear: new Date().getFullYear(), viewMonth: new Date().getMonth()
+    };
+
+    var WA_NUMBER = '56912345678'; /* ← Reemplaza por tu número */
+
+    function $(id) { return document.getElementById(id); }
+
+    function formatDate(iso) {
+      if (!iso) return '';
+      var p = iso.split('-');
+      var d = new Date(parseInt(p[0]), parseInt(p[1]) - 1, parseInt(p[2]));
+      var days   = ['domingo','lunes','martes','miércoles','jueves','viernes','sábado'];
+      var months = ['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
+      return days[d.getDay()] + ' ' + d.getDate() + ' de ' + months[d.getMonth()];
+    }
+    function isoDate(y, m, d) {
+      return y + '-' + String(m+1).padStart(2,'0') + '-' + String(d).padStart(2,'0');
+    }
+
+    /* ---- Progress & Tabs ---- */
+    function getProgress() {
+      var n = 0;
+      if (state.service) n++;
+      if (state.date)    n++;
+      if (state.time)    n++;
+      if (state.nombre && state.telefono) n++;
+      return n;
+    }
+    function updateProgress() {
+      var done = getProgress();
+      $('progressFill').style.width = (done * 25) + '%';
+      $('progressFill').parentElement.setAttribute('aria-valuenow', done * 25);
+      document.querySelectorAll('.step-tab').forEach(function(tab, i) {
+        tab.classList.remove('active', 'done');
+        var num = tab.querySelector('.tab-num');
+        if (i < done) {
+          tab.classList.add('done');
+          num.innerHTML = '<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>';
+        } else {
+          num.textContent = i + 1;
+          if (i === done) tab.classList.add('active');
+        }
+      });
+      updateSummary();
+      updateBtn();
+    }
+
+    /* ---- Services ---- */
+    document.querySelectorAll('.service-card').forEach(function(card) {
+      card.addEventListener('click', function() {
+        document.querySelectorAll('.service-card').forEach(function(c) {
+          c.classList.remove('selected'); c.setAttribute('aria-checked','false');
+        });
+        card.classList.add('selected'); card.setAttribute('aria-checked','true');
+        state.service = card.dataset.service;
+        updateProgress();
+      });
+      card.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); card.click(); }
+      });
+    });
+
+    /* ---- Calendar ---- */
+    var MONTHS = ['Enero','Febrero','Marzo','Abril','Mayo','Junio',
+                  'Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
+
+    function renderCalendar() {
+      var y = state.viewYear, m = state.viewMonth;
+      $('calTitle').textContent = MONTHS[m] + ' ' + y;
+      var today = new Date(); today.setHours(0,0,0,0);
+      var firstDOW = new Date(y, m, 1).getDay();
+      firstDOW = (firstDOW + 6) % 7;
+      var daysInMonth = new Date(y, m + 1, 0).getDate();
+      var grid = $('calGrid'); grid.innerHTML = '';
+
+      for (var i = 0; i < firstDOW; i++) {
+        var b = document.createElement('div');
+        b.className = 'cal-day cal-day--empty'; b.setAttribute('aria-hidden','true');
+        grid.appendChild(b);
+      }
+      for (var d = 1; d <= daysInMonth; d++) {
+        var dayDate = new Date(y, m, d);
+        var iso = isoDate(y, m, d);
+        var el = document.createElement('div');
+        el.className = 'cal-day'; el.textContent = d;
+        var isSun  = dayDate.getDay() === 0;
+        var isPast = dayDate < today;
+        var isToday= dayDate.getTime() === today.getTime();
+        var isSel  = state.date === iso;
+        if (isPast || isSun) {
+          el.classList.add(isSun ? 'cal-day--sunday' : 'cal-day--past');
+          el.setAttribute('aria-disabled','true');
+        } else {
+          el.classList.add('cal-day--available');
+          el.setAttribute('role','gridcell'); el.setAttribute('tabindex','0');
+          el.setAttribute('aria-label', formatDate(iso));
+          if (isToday) el.classList.add('cal-day--today');
+          if (isSel)   el.classList.add('cal-day--selected');
+          (function(dateIso) {
+            el.addEventListener('click', function() { state.date = dateIso; renderCalendar(); updateProgress(); });
+            el.addEventListener('keydown', function(e) { if (e.key==='Enter'||e.key===' ') { e.preventDefault(); el.click(); } });
+          })(iso);
+        }
+        grid.appendChild(el);
+      }
+    }
+    $('calPrev').addEventListener('click', function() {
+      if (--state.viewMonth < 0) { state.viewMonth = 11; state.viewYear--; } renderCalendar();
+    });
+    $('calNext').addEventListener('click', function() {
+      if (++state.viewMonth > 11) { state.viewMonth = 0; state.viewYear++; } renderCalendar();
+    });
+
+    /* ---- Time slots ---- */
+    document.querySelectorAll('.time-slot:not(.taken)').forEach(function(slot) {
+      slot.addEventListener('click', function() {
+        document.querySelectorAll('.time-slot:not(.taken)').forEach(function(s) {
+          s.classList.remove('selected'); s.setAttribute('aria-checked','false');
+        });
+        slot.classList.add('selected'); slot.setAttribute('aria-checked','true');
+        state.time = slot.dataset.time; updateProgress();
+      });
+      slot.addEventListener('keydown', function(e) {
+        if (e.key==='Enter'||e.key===' ') { e.preventDefault(); slot.click(); }
+      });
+    });
+
+    /* ---- Inputs ---- */
+    $('inp-nombre').addEventListener('input', function() {
+      state.nombre = this.value.trim();
+      this.classList.remove('error'); $('err-nombre').classList.remove('show'); updateProgress();
+    });
+    $('inp-tel').addEventListener('input', function() {
+      state.telefono = this.value.trim();
+      this.classList.remove('error'); $('err-tel').classList.remove('show'); updateProgress();
+    });
+
+    /* ---- Summary ---- */
+    function updateSummary() {
+      var items = [];
+      if (state.service) items.push({ ico:'<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><line x1="20" y1="4" x2="8.12" y2="15.88"/><line x1="14.47" y1="14.48" x2="20" y2="20"/><line x1="8.12" y1="8.12" x2="12" y2="12"/></svg>', key:'Servicio', val:state.service });
+      if (state.date)    items.push({ ico:'<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>', key:'Fecha', val:formatDate(state.date) });
+      if (state.time)    items.push({ ico:'<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>', key:'Hora', val:state.time+' hrs' });
+      if (state.nombre)  items.push({ ico:'<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>', key:'Nombre', val:state.nombre });
+      if (!items.length) { $('bookingSummary').classList.remove('show'); return; }
+      $('bookingSummary').classList.add('show');
+      $('summaryRows').innerHTML = items.map(function(it) {
+        return '<div class="summary__row"><div class="summary__ico">'+it.ico+'</div><span class="summary__key">'+it.key+'</span><span class="summary__val">'+it.val+'</span></div>';
+      }).join('');
+    }
+
+    /* ---- Confirm button ---- */
+    function updateBtn() {
+      $('confirmBtn').disabled = !(state.service && state.date && state.time && state.nombre && state.telefono);
+    }
+
+    function validate() {
+      var ok = true;
+      if (!state.nombre) { $('inp-nombre').classList.add('error'); $('err-nombre').classList.add('show'); ok = false; }
+      if (!state.telefono || state.telefono.length < 6) { $('inp-tel').classList.add('error'); $('err-tel').classList.add('show'); ok = false; }
+      return ok && state.service && state.date && state.time;
+    }
+
+    $('confirmBtn').addEventListener('click', function() {
+      if (!validate()) return;
+      var msg = 'Hola, quiero reservar una cita:\n'
+        + '✂️ Servicio: ' + state.service + '\n'
+        + '📅 Fecha: '    + formatDate(state.date) + '\n'
+        + '🕐 Hora: '     + state.time + '\n'
+        + '👤 Nombre: '   + state.nombre + '\n'
+        + '📱 Teléfono: ' + state.telefono;
+      window.open('https://wa.me/' + WA_NUMBER + '?text=' + encodeURIComponent(msg), '_blank', 'noopener,noreferrer');
+      setTimeout(function() {
+        $('bookingForm').style.display = 'none';
+        document.querySelector('.step-tabs').style.display = 'none';
+        $('successScreen').classList.add('show');
+        $('progressFill').style.width = '100%';
+      }, 300);
+    });
+
+    $('newBookingBtn').addEventListener('click', function() {
+      Object.assign(state, { service:null, date:null, time:null, nombre:'', telefono:'',
+        viewYear: new Date().getFullYear(), viewMonth: new Date().getMonth() });
+      document.querySelectorAll('.service-card').forEach(function(c) { c.classList.remove('selected'); c.setAttribute('aria-checked','false'); });
+      document.querySelectorAll('.time-slot:not(.taken)').forEach(function(s) { s.classList.remove('selected'); s.setAttribute('aria-checked','false'); });
+      $('inp-nombre').value = ''; $('inp-tel').value = '';
+      $('successScreen').classList.remove('show');
+      $('bookingForm').style.display = '';
+      document.querySelector('.step-tabs').style.display = '';
+      renderCalendar(); updateProgress();
+    });
+
+    /* ---- Init ---- */
+    renderCalendar();
+    updateProgress();
+  </script>
+</body>
+</html>
