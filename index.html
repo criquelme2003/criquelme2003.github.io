@@ -214,52 +214,6 @@
             transform: translateY(-3px);
         }
 
-        /* Problema Section */
-        #problema {
-            background: linear-gradient(135deg, rgba(30, 95, 213, 0.08) 0%, rgba(59, 127, 255, 0.05) 100%);
-        }
-
-        .problema-list {
-            list-style: none;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 1.5rem;
-            margin-top: 2rem;
-        }
-
-        .problema-list li {
-            padding: 1.5rem;
-            background: white;
-            border-radius: 12px;
-            border-left: 4px solid var(--blue-main);
-            box-shadow: 0 4px 15px rgba(30, 95, 213, 0.08);
-            transition: all 0.3s ease;
-            animation: slideInLeft 0.6s ease-out both;
-            color: var(--text-dark);
-        }
-
-        .problema-list li strong {
-            color: var(--blue-dark);
-        }
-
-        .problema-list li:nth-child(2) {
-            animation-delay: 0.1s;
-        }
-
-        .problema-list li:nth-child(3) {
-            animation-delay: 0.2s;
-        }
-
-        .problema-list li:nth-child(4) {
-            animation-delay: 0.3s;
-        }
-
-        .problema-list li:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 25px rgba(30, 95, 213, 0.15);
-            border-left-color: var(--blue-accent);
-        }
-
         /* Portfolio */
         #prueba {
             padding: 5rem 2rem;
@@ -710,18 +664,6 @@
             <a href="#accion" class="btn btn-primary">Comenzar ahora →</a>
             <a href="#prueba" class="btn btn-secondary">Ver casos reales</a>
         </div>
-    </section>
-
-    <!-- PROBLEMA -->
-    <section id="problema">
-        <h2>El desafío real</h2>
-        <p>Muchas webs existen, pero pocas generan resultados. Te mostramos los problemas más comunes:</p>
-        <ul class="problema-list">
-            <li><strong>Falta de dinamismo</strong> — Webs estáticas que no capturan atención del visitante</li>
-            <li><strong>Sin estrategia</strong> — Diseño bonito pero sin conversión clara</li>
-            <li><strong>Experiencia pobre</strong> — Lenta, poco intuitiva, no mobile-friendly</li>
-            <li><strong>Invisibilidad digital</strong> — No aparece en búsquedas ni genera engagement</li>
-        </ul>
     </section>
 
     <!-- PRUEBA / Portfolio -->
